@@ -46,6 +46,13 @@ for argIndex in range(1,len(sys.argv)):
         
                                                 
 
+if bamFileExists == 0 or refFileExists == 0 or outFileExists == 0: ## lack enough arguments
+    print("Please provide arguments:")
+    print("-bam\tIndexed bam file")
+    print("-ref\tGene annotation file")
+    print("-out\tOutput file")
+    sys.exit()
+
 
 # load gene information
 geneStructureInformation = auto_dict()
@@ -517,6 +524,26 @@ for gene in geneStructureInformation:
                 
     sumAlpha = sum(Alpha)
     if sumAlpha == 0: continue
+
+    for i in range(len(Alpha)):
+        Alpha[i] = Alpha[i] / sumAlpha
+
+    isoformRelativeAbundances = [None] * len(isoformNames)
+    sumTheta = 0.0
+    for i in range(len(Alpha)):
+        sumTheta += Alpha[i] / isoformLength[isoformNames[i]]
+
+    print(gene+"\t"+str(iterCount)+" iterations\tDone!")
+
+    
+    for i in range(len(Alpha)):
+        isoformRelativeAbundances[i] = Alpha[i] / (isoformLength[isoformNames[i]] * sumTheta)
+        #print(gene+"\t"+str(geneCount)+"\t"+str(iterCount)+"\t"+isoformNames[i]+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(tmpTime))
+
+        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(readCount)+"\t"+str(isoformRelativeAbundances[i])+"\n") ## write results into specified file
+
+
+OUT.close()
             
                             
 
