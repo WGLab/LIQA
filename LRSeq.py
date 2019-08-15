@@ -1,5 +1,5 @@
 #!/usr/bin/python
- 
+
 from __future__ import print_function # load print function in python3
 from collections import defaultdict
 import math, sys, os, re, pysam, time
