@@ -235,12 +235,13 @@ for gene in geneStructureInformation:
         if sameReadCount[readName] == 1:
             fragmentStart[readName] = readStart[readName][1]
             fragmentEnd[readName] = readEnd[readName][1]
-            
+            readStart[readName][2] = readStart[readName][1]
+            readEnd[readName][2] = readEnd[readName][1]
+           
         ##################################################################################################################################    
         ## Obtain compatible matrix of isoforms with respect to reads
         #################################################################################################################################
-        
-        if (readStart[readName][1] >= geneStart and readStart[readName][1] <= geneEnd) or (readStart[readName][2] >= geneStart and readStart[readName][2] <= geneEnd and sameReadCount[readName]==2) :
+        if (readStart[readName][1] >= geneStart and readStart[readName][1] <= geneEnd) and sameReadCount[readName]==1 or (readStart[readName][2] >= geneStart and readStart[readName][2] <= geneEnd and sameReadCount[readName]==2) :
             if cigarInfCountRead1 == cigarInfCountRead1tmp and cigarInfCountRead2 == cigarInfCountRead2tmp:
                 base1 = readStart[readName][1] - 1
                 exonIndicatorRead1 = [0] * numofExons
@@ -356,6 +357,7 @@ for gene in geneStructureInformation:
             ### CACULATE VALID FRAGMENT LOCATION ON THIS GENE ###################################
             tmpStart = None
             tmpEnd = None
+            #print(readName)
             for j in range(len(exonStarts)):
                 if j == 0:
                     if fragmentStart[readName] < exonStarts[j]:
@@ -393,50 +395,6 @@ for gene in geneStructureInformation:
             fragmentStart[readName] = tmpStart ## new starts and end position updated
             fragmentEnd[readName] = tmpEnd
 
-            ############################################################################################################################################
-            ## PILE UP AT EACH BASE PAIR POSITION
-            ############################################################################################################################################
-            if CompatibleMatrix[readName][isoformNames[i]] == 1:
-                for j in range(len(exonStarts)):
-                    if exonIndicators[isoformNames[i]][j] == 1:
-                        if tmpStart >= exonStarts[j] and tmpStart<= exonEnds[j]:
-                            if tmpEnd >= exonStarts[j] and tmpEnd <= exonEnds[j]:
-                                for k in range(tmpStart, tmpEnd+1):
-
-                                    positionsFragmentCovered[readName][k] = 1
-                                    if not bool(readsDistributionIsoform[isoformNames[i]][k]): readsDistributionIsoform[isoformNames[i]][k] = 1
-                                    else: readsDistributionIsoform[isoformNames[i]][k] += 1
-                                    if not bool(denominator[isoformNames[i]]): denominator[isoformNames[i]] = 1
-                                    else: denominator[isoformNames[i]] += 1
-
-                            if tmpEnd > exonEnds[j]:
-                                for k in range(tmpStart, exonEnds[j]+1):
-
-                                    positionsFragmentCovered[readName][k] = 1
-                                    if not bool(readsDistributionIsoform[isoformNames[i]][k]): readsDistributionIsoform[isoformNames[i]][k] = 1
-                                    else: readsDistributionIsoform[isoformNames[i]][k] += 1
-                                    if not bool(denominator[isoformNames[i]]): denominator[isoformNames[i]] = 1
-                                    else: denominator[isoformNames[i]] += 1
-
-                        if tmpStart < exonStarts[j]:
-                            if tmpEnd >= exonStarts[j] and tmpEnd <= exonEnds[j]:
-                                for k in range(exonStarts[j], tmpEnd+1):
-                                    
-                                    positionsFragmentCovered[readName][k] = 1
-                                    if not bool(readsDistributionIsoform[isoformNames[i]][k]): readsDistributionIsoform[isoformNames[i]][k] = 1
-                                    else: readsDistributionIsoform[isoformNames[i]][k] += 1
-                                    if not bool(denominator[isoformNames[i]]): denominator[isoformNames[i]] = 1
-                                    else: denominator[isoformNames[i]] += 1
-
-                            if tmpEnd > exonEnds[j]:
-                                for k in range(exonStarts[j], exonEnds[j]+1):
-
-                                    positionsFragmentCovered[readName][k] = 1
-                                    if not bool(readsDistributionIsoform[isoformNames[i]][k]): readsDistributionIsoform[isoformNames[i]][k] = 1
-                                    else: readsDistributionIsoform[isoformNames[i]][k] += 1
-                                    if not bool(denominator[isoformNames[i]]): denominator[isoformNames[i]] = 1
-                                    else: denominator[isoformNames[i]] += 1
-
             
     #####################################################################################################
     ## EM algorithm
@@ -460,14 +418,9 @@ for gene in geneStructureInformation:
     numerator = auto_dict()
     numeratorKnown = auto_dict()
     for i in range(len(isoformNames)):
-        if not bool(denominator[isoformNames[i]]): denominator[isoformNames[i]] = 0
-        for readName in positionsFragmentCovered:
-            numerator[readName][isoformNames[i]] = 0.0
-            for k in positionsFragmentCovered[readName]:
-                if lociIndicators[isoformNames[i]][k] == 1 and bool(readsDistributionIsoform[isoformNames[i]][k]):
-                    numerator[readName][isoformNames[i]] += readsDistributionIsoform[isoformNames[i]][k]
-            
-            if denominator[isoformNames[i]] > 0 and numerator[readName][isoformNames[i]] >= 0: Hfunction[readName][isoformNames[i]] = float(numerator[readName][isoformNames[i]]) / denominator[isoformNames[i]]
+        if not bool(isoformLength[isoformNames[i]]): isoformLength[isoformNames[i]] = 0
+        for readName in qualifiedRead:
+            if isoformLength[isoformNames[i]] > 0: Hfunction[readName][isoformNames[i]] = float(1) / isoformLength[isoformNames[i]]
             else: Hfunction[readName][isoformNames[i]] = 0
 
     #########################################################################################################
