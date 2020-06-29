@@ -13,7 +13,7 @@ The input of LIQA is single-cell RNA-seq read data in BAM format together with a
 Please refer to [Installation](https://github.com/WGLab/LIQA/blob/master/doc/Install.md) for how to install LIQA.
 
 ## Usage
-Please refere to [Usage](https://github.com/huyustats/LIQA/blob/master/doc/Usage.md) for how to use LIQA.
+Please refere to [Usage](https://github.com/WGLab/LIQA/blob/master/doc/Usage.md) for how to use LIQA.
 
 ## Contact
 
