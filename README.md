@@ -17,7 +17,7 @@ Please refere to [Usage](https://github.com/WGLab/LIQA/blob/master/doc/Usage.md)
 
 ## Contact
 
-If you have any questions/issues/bugs, please post them on [GitHub](https://github.com/huyustats/LIQA/issues). They would also be helpful to other users. 
+If you have any questions/issues/bugs, please post them on [GitHub](https://github.com/WGLab/LIQA/issues). They would also be helpful to other users. 
 
 
 
