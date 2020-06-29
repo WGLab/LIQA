@@ -1,2 +1,1 @@
-# LRSeq
 # LIQA
