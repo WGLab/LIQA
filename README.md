@@ -3,7 +3,7 @@ A statistical tool to quantify isoform-specific expression using long-read RNA-s
 
 ## Computational pipeline of LIQA
 <p align="center">
-  <img width="500" height="650" src="doc/framework.png">
+  <img width="115" height="55" src="doc/framework.png">
 </p>
 
 ## Inputs of LIQA
