@@ -3,7 +3,8 @@
 from __future__ import print_function # load print function in python3
 from collections import defaultdict
 import math, sys, os, re, pysam, time
-
+from lifelines import KaplanMeierFitter
+kmf = KaplanMeierFitter()
 # set up auto dictionary function
 def auto_dict():
     return defaultdict(auto_dict)
@@ -14,7 +15,7 @@ def auto_dict():
 ###############################################################################
 
 # checking whether argument is valid or not
-validArgList = ["-bam", "-ref", "-out"]
+validArgList = ["-bam", "-ref", "-out", "-mismatch"]
 for argIndex in range(1,len(sys.argv)):
     if sys.argv[argIndex][0] == "-" and sys.argv[argIndex] not in validArgList :
         print("Argument \'"+sys.argv[argIndex]+"\' is invalid!")
@@ -24,6 +25,7 @@ for argIndex in range(1,len(sys.argv)):
 bamFileExists = 0
 refFileExists = 0
 outFileExists = 0
+misFileExists = 0
 for argIndex in range(1,len(sys.argv)):
     if sys.argv[argIndex] == "-bam":  ## load in BAM file
         argIndex += 1
@@ -43,14 +45,21 @@ for argIndex in range(1,len(sys.argv)):
         outTmp = sys.argv[argIndex].split("/")
         outFile = outFileAbsPath + "/" + outTmp[len(outTmp)-1]
         outFileExists = 1
-        
+    elif sys.argv[argIndex] == "-mismatch":  ## mismatch tolerate
+        argIndex += 1
+        #misFileAbsPath = os.path.dirname(os.path.abspath(sys.argv[argIndex]))
+        #misTmp = sys.argv[argIndex].split("/")
+        misMatch = int(sys.argv[argIndex])
+        misFileExists = 1
+
                                                 
 
-if bamFileExists == 0 or refFileExists == 0 or outFileExists == 0: ## lack enough arguments
+if bamFileExists == 0 or refFileExists == 0 or outFileExists == 0 or misFileExists == 0: ## lack enough arguments
     print("Please provide arguments:")
     print("-bam\tIndexed bam file")
     print("-ref\tGene annotation file")
     print("-out\tOutput file")
+    print("-max_distance\tMax distance")
     sys.exit()
 
 
@@ -262,8 +271,8 @@ for gene in geneStructureInformation:
                         for j in range(1,cigarNumberRead1[i]+1):
                             tmpbase = base1 + j
                             for k in range(len(exonStarts)):
-                                if exonIndicatorRead1[k] == 1: continue
-                                if tmpbase >= exonStarts[k] and tmpbase <= exonEnds[k]: exonIndicatorRead1[k] = 1 ## confirm that the read covers this exon
+                                if exonIndicatorRead1[k] > misMatch: continue
+                                if tmpbase >= exonStarts[k] and tmpbase <= exonEnds[k]: exonIndicatorRead1[k] += 1 ## confirm that the read covers this exon
         
                         base1 += cigarNumberRead1[i] # jump to next match information
 
@@ -274,15 +283,15 @@ for gene in geneStructureInformation:
                 tmpcount1 = 0
                 tmpcount11 = 0 ## these two variable are used to rule out skipping exons
                 for i in range(len(exonIndicatorRead1)):
-                    if exonIndicatorRead1[i] == 1: tmpcount1 += 1
+                    if exonIndicatorRead1[i] > misMatch: tmpcount1 += 1
                 for i in range(len(exonIndicatorRead1)):
 
-                    if exonIndicatorRead1[i] == 1:
+                    if exonIndicatorRead1[i] > misMatch:
                         tmpcount11 += 1
                         for j in range(len(isoformNames)):
                             if exonIndicators[isoformNames[j]][i] == 0: compatibleVector[j] = 0 ## rule out isoform j if reads covers skipping area of isoform j
 
-                    if exonIndicatorRead1[i] == 0: #aim to rule out isforms which includes exons which skipped by read
+                    if exonIndicatorRead1[i] <= misMatch: #aim to rule out isforms which includes exons which skipped by read
                         if tmpcount1 > 1 and tmpcount11 >= 1 and tmpcount11 < tmpcount1: ## confirm the exon i is skipped by read!!
                             for j in range(len(isoformNames)):
                                 if exonIndicators[isoformNames[j]][i] == 1: compatibleVector[j] = 0
@@ -299,8 +308,8 @@ for gene in geneStructureInformation:
                             for j in range(1,cigarNumberRead2[i]+1):
                                 tmpbase = base2 + j
                                 for k in range(len(exonStarts)):
-                                    if exonIndicatorRead2[k] == 1: continue
-                                    if tmpbase >= exonStarts[k] and tmpbase <= exonEnds[k]: exonIndicatorRead2[k] = 1 ## confirm that the read covers this exon
+                                    if exonIndicatorRead2[k] > misMatch: continue
+                                    if tmpbase >= exonStarts[k] and tmpbase <= exonEnds[k]: exonIndicatorRead2[k] += 1 ## confirm that the read covers this exon
                                     
                             base2 += cigarNumberRead2[i] # jump to next match information
                                     
@@ -311,15 +320,15 @@ for gene in geneStructureInformation:
                     tmpcount2 = 0
                     tmpcount22 = 0 ## these two variable are used to rule out skipping exons
                     for i in range(len(exonIndicatorRead2)):
-                        if exonIndicatorRead2[i] == 1: tmpcount2 += 1
+                        if exonIndicatorRead2[i] > misMatch: tmpcount2 += 1
                     for i in range(len(exonIndicatorRead2)):
                             
-                        if exonIndicatorRead2[i] == 1:
+                        if exonIndicatorRead2[i] > misMatch:
                             tmpcount22 += 1
                             for j in range(len(isoformNames)):
                                 if exonIndicators[isoformNames[j]][i] == 0: compatibleVector[j] = 0 ## rule out isoform j if reads covers skipping area of isoform j
                                                     
-                        if exonIndicatorRead2[i] == 0: #aim to rule out isforms which includes exons which skipped by read
+                        if exonIndicatorRead2[i] <= misMatch: #aim to rule out isforms which includes exons which skipped by read
                             if tmpcount2 > 1 and tmpcount22 >= 1 and tmpcount22 < tmpcount2: ## confirm the exon i is skipped by read!!
                                 for j in range(len(isoformNames)):
                                     if exonIndicators[isoformNames[j]][i] == 1: compatibleVector[j] = 0

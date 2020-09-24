@@ -15,6 +15,7 @@ if (task not in taskList):
     print("\nPlease specify task (LIQA.py -task <task>):\n")
     print("\trefgene:   preprocess reference file\n")
     print("\tquantify:   quantify isoform expression\n")
+    print("\tdiff:   detect differential splicing gene/isoform\n")
 
 if task == "refgene":
     validArgList = ["-task", "-ref", "-out"]
@@ -27,12 +28,23 @@ if task == "refgene":
     os.system(myCommand)
 
 if task == "quantify":
-    validArgList = ["-task", "-refgene", "-bam", "-out"]
-    addAbsPath = [0, 1, 1, 3]
-    message = "LIQA.py -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file>"
+    validArgList = ["-task", "-refgene", "-bam", "-out", "-max_distance"]
+    addAbsPath = [0, 1, 1, 3, 0]
+    message = "LIQA.py -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance>"
     inputs = my.parse_argument(validArgList, addAbsPath, message)
     refFile = inputs[1]
     bamFile = inputs[2]
     outFile = inputs[3]
-    myCommand = "python " + fileAbsPath + "/bin/LRSeq_new.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile
+    misMatch = inputs[4]
+    myCommand = "python " + fileAbsPath + "/bin/LRSeq_new.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch
+    os.system(myCommand)
+
+if task == "diff":
+    validArgList = ["-task", "-ref", "-est"]
+    addAbsPath = [0, 1, 1]
+    message = "LIQA.py -task refgene -ref <reference_file> -est <isoformRelativeAbundances_estimations>"
+    inputs = my.parse_argument(validArgList, addAbsPath, message)
+    refFile = inputs[1]
+    estFile = inputs[2]
+    myCommand = "python " + fileAbsPath + "/bin/PennDiff.py -r " + refFile + " -est " + estFile
     os.system(myCommand)
