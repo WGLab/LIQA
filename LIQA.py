@@ -7,7 +7,7 @@ fileAbsPath = os.path.abspath(os.path.dirname(__file__))
 crtAbsPath = os.getcwd()
 
 task = ""
-taskList = ["refgene", "quantify"]
+taskList = ["refgene", "quantify", "diff"]
 for i in range(1,len(sys.argv)):
     if sys.argv[i] == "-task" and len(sys.argv)!=i+1:
         task = sys.argv[i+1]
@@ -42,7 +42,7 @@ if task == "quantify":
 if task == "diff":
     validArgList = ["-task", "-ref", "-est"]
     addAbsPath = [0, 1, 1]
-    message = "LIQA.py -task refgene -ref <reference_file> -est <isoformRelativeAbundances_estimations>"
+    message = "LIQA.py -task refgene -ref <refgene_file> -est <isoformRelativeAbundances_estimations>"
     inputs = my.parse_argument(validArgList, addAbsPath, message)
     refFile = inputs[1]
     estFile = inputs[2]
