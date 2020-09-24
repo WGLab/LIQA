@@ -5,17 +5,11 @@ The inputs of LIQA are aligned long-read RNA-seq data in BAM format and a refere
 LIQA.py -task <task>:
 
         refgene:   preprocess reference file
-
-        group:   group alternative splicing exon
-
-        count:   count informative reads from indexed BAM file
-
-        gene:    estimate mean gene expression for each single cell condition
-
-        das:    detect differential alternative splicing (DAS) for each exon group between conditions
-
-        sum:    summarize DAS test results
-
+        
+        quantify:   quantify isoform expression
+        
+        diff:   detect differential splicing gene/isoform
+        
 ```
 
 ## Step 1: Transform isoforms to compatible matrix based on reference annotation file
@@ -38,53 +32,17 @@ We preprocess `example.refFile` by using `python LIQA.py -task refgene`. An exam
 python LIQA.py -task refgene -ref example.refFile -out example.refgene
 ```
 
-## Step 2: Extract informative read count for each exon group from alignment file
-LIQA requires a headerless `metafile` in this step to tell LIQA that how and where to find the aligment BAM files to extract cell-specific informative read count. BAM files have to be indexed. Here is an example of `metafile`
+## Step 2: Quantify isoform expression
+In this step, user needs to give  `refgene_File`, `bam_file` to LIQA to estimate isoform expression using long-read RNA-seq data:
 ```
-AACACGTCACATAACC-1      A       ~/1dot1/outs/possorted_genome_bam.bam  UB      CB
-GGACAAGTCTCCCTGA-1      A       ~/1dot1/outs/possorted_genome_bam.bam  UB      CB
-CACAGGCAGATCCCGC-1      B       ~/1dot1/outs/possorted_genome_bam.bam  UB      CB
-ATCTGCCGTCATCGGC-1      B       ~/1dot1/outs/possorted_genome_bam.bam  UB      CB
-GGAAAGCGTTGCTCCT-1      C       ~/1dot1/outs/possorted_genome_bam.bam  UB      CB
-CGAGCACGTGTTCTTT-1      C       ~/1dot1/outs/possorted_genome_bam.bam  UB      CB
-CCTATTACAATGGATA-1      D       ~/1dot1/outs/possorted_genome_bam.bam  UB      CB
-AAGGAGCAGCGTCAAG-1      D       ~/1dot1/outs/possorted_genome_bam.bam  UB      CB
+python LIQA.py -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance>
 ```
-where <strong>1st</strong> column contains cell <strong>barcode/cell name</strong>, <strong>2nd</strong> column represents <strong>condition group</strong>, <strong>3rd</strong> column represents the <strong>location of BAM file</strong>. <strong>4th</strong> and <strong>5th</strong> columns represent the <strong>tag names of UMI barcode and cell barcode</strong> in BAM file. For example
+where
 ```
-NS500497:57:H27CKBGX2:3:12506:1885:16376        272     1       3014861 1       98M     *       0       0       TGGCGTTCCCCTGTACTGGGGCTTATAAAGTTTGCAAGTCCAATGGGCCTCTCTTTGCAGTGATGGCCGACTAGGCCATCTTTTGATACATATGCAGC      //A/A/A/EEE<A66EA/EAE//</EAEE//E/AEEAE/EEEAEE//AEEEE/AAAEEEEAEEEEE6EEEEEEEEEEEEAEE/EE6EEEEAEEAAAAA   NH:i:3  HI:i:3  AS:i:94 nM:i:1  NM:i:1  CR:Z:GAGGTGAAGTGACATA   CY:Z:AAAAAEEEEEEEEEEE   CB:Z:GAGGTGAAGTGACATA-1 UR:Z:CCATACATGA UY:Z:EEEEEEEEEE UB:Z:CCATACATGA      BC:Z:GGTTTACT   QT:Z:AAAAAEEE   RG:Z:CellRangerCount-1dot1_combined:MissingLibrary:1:H27CKBGX2:3
+<bam>_file: A bam file.
+<refgene_file>: A reference file obtained from step 1.
+<max distance>: The maximum length of an alignment error at exon boundary. Recommend: 10.
 ```
-where UMI barcode and cell barcode tag names are indicated by "UB" and "CB" in this BAM file.
-
-The specific usage details are given below.
-```
-        USAGE:
-        python LIQA.py -task count [count options] -meta <metafile> -refgene <refgene_file> -gpinfo <gpinfo_file>
-
-        [count options]    type 'python LIQA.py -task count' to check two important count options.
-        
-          -umi  <yes/no> collect UMI count or not
-        
-          -onebam  <yes/no> whether all aligned reads are merged in one BAM files
-
-        OUTPUT:
-        
-          count_*.sh    script files will be generated under directory `./tmp/count_script`.
-```
-where '-umi' and '-onebam' are two important options:
-* `-umi yes -onebam yes`: UMI and cell barcode tag names have to be specified in the <strong>4th</strong> and <strong>5th</strong> columns of `metafile`.
-* `-umi yes -onebam no`: only UMI barcode tag name is needed. It has to be specified in the <strong>4th</strong> column of `metafile`.
-* `-umi no -onebam yes`: only cell barcode tag name is needed. It has to be specified in the <strong>4th</strong> column of `metafile`.
-* `-umi no -onebam no`: no tag name is needed.
-
-Outputs of `python LIQA.py -task count` are `count_*.sh` script files located at `./tmp/count_script`. User needs to run all of them to obtain informative read count for each single cell.
-
-## Step 3: Quantify gene-level expression accounting for technical noises
-In this step, user needs to give  `metafile` to LIQA and specify the number of cores to use for each pairwise comparison between conditions:
-```
-python LIQA.py -task gene -ncore 20 -meta metafile
-```
-Outputs of `python LIQA.py -task gene` are `gene_*.sh` script files located at `./tmp/gene_script`. User needs to run all of them to obtain accurate gene expression estimations for each cell condition group.
 
 ## Step 4: Detect differential alternative splicing (DAS) across cell conditions accounting for technical noises
 In this step, user needs to give  `metafile` and `example.gpinfo` to LIQA and specify the number of cores to use for each pairwise comparison between conditions:
