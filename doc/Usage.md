@@ -79,3 +79,22 @@ ECE1    NM_001113349    1       0.087303489040162       1
 ECE1    NM_001113348    1       0.571130340575692       1
 ECE1    NM_001397       1       0.047109024057844       1
 ```
+Output:
+```
+	"geneDASResults" file: Gene-based test results file with 3 columns:
+		• Column 1: gene name
+		• Column 2: test P-Value
+		• Column 3: Hellinger distance which measures the splicing difference between two conditions for a gene in terms of isoform relative abundances
+		
+	"exonDASResults" file: Exon-based test results file with 10 columns:
+		• Column 1: gene name
+		• Column 2: DAS testing group where exons within same group share same P-Value
+		• Column 3: exon location
+		• Column 4: test P-Value
+		• Column 5: exon inclusion level difference which measures splicing difference between two conditions for an spliced exon
+		• Column 6: "+"/"-" if exon inclusion level of condition 1 is greater/smaller than condition 2.
+		• Column 7: number of samples in condition 1 group
+		• Column 8: exon inclusion levels of each sample in condition 1 group
+		• Column 9: number of samples in condition 2 group
+		• Column 10: exon inclusion levels of each sample in condition 2 group
+```
