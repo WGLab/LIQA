@@ -44,14 +44,13 @@ where
 <max distance>: The maximum length of an alignment error at exon boundary. Recommend: 10.
 ```
 
-## Step 4: Detect differential alternative splicing (DAS) across cell conditions accounting for technical noises
-In this step, user needs to give  `metafile` and `example.gpinfo` to LIQA and specify the number of cores to use for each pairwise comparison between conditions:
+## Step 3: Detect differential splicing gene/isoform between conditions
+In this step, user needs to give  `refgene_File`, `isoform exression estimates` to LIQA to detect differential splicing gene/isoform.
 ```
-python LIQA.py -task das -ncore 20 -meta metafile -gpinfo example.gpinfo
+python LIQA.py -task diff -ref <reference_file> -est <isoformRelativeAbundances_estimations>
 ```
 Outputs of `python LIQA.py -task das` are `das_*.sh` script files located at `./tmp/das_script`. User needs to run all of them to obtain differential alternative splicing even at exon group level across cell conditions.
 
-## Step 5: Summarize DAS test results
 ```
 python LIQA.py -task sum -gpinfo example.gpinfo
 ```
