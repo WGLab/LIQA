@@ -46,5 +46,5 @@ if task == "diff":
     inputs = my.parse_argument(validArgList, addAbsPath, message)
     refFile = inputs[1]
     estFile = inputs[2]
-    myCommand = "python " + fileAbsPath + "/bin/PennDiff.py -r " + refFile + " -est " + estFile
+    myCommand = "python " + fileAbsPath + "/bin/Diff.py -r " + refFile + " -est " + estFile
     os.system(myCommand)
