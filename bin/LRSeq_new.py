@@ -99,7 +99,8 @@ geneCount = 0
 
 startTime = time.time()
 
-OUT.write("GeneName\tIsoformName\tNumberOfReads\tRelativeAbundance\n") ## Header of Results
+#OUT.write("GeneName\tIsoformName\tNumberOfReads\tRelativeAbundance\n") ## Header of Results
+OUT.write("GeneName\tIsoformName\tRelativeAbundance\tReadPerGene_corrected\n")
 
 for gene in geneStructureInformation:
 
@@ -117,7 +118,12 @@ for gene in geneStructureInformation:
     geneChr = tmpgeneinf[1]
     geneStart = int(tmpgeneinf[3])
     geneEnd = int(tmpgeneinf[4])
-
+    
+    # deal with gene and isoform length information in refgene file
+    tmpisoinf = tmpgeneinf[5].split(";")
+    tmpgeneinf[5] = tmpisoinf[0]
+    tmpisolength = tmpisoinf[1].split(",")
+    genelength = int(tmpisolength[0])
 
     ## load all reads information which were mapped to the specific gene within this loop using pysam
     for read in bamFilePysam.fetch(geneChr, geneStart, geneEnd):
@@ -497,13 +503,13 @@ for gene in geneStructureInformation:
 
     print(gene+"\t"+str(iterCount)+" iterations\tDone!")
 
-    
+    rpg_lengthcorrected = readCount/genelength*100
     for i in range(len(Alpha)):
         isoformRelativeAbundances[i] = Alpha[i] / (isoformLength[isoformNames[i]] * sumTheta)
         #print(gene+"\t"+str(geneCount)+"\t"+str(iterCount)+"\t"+isoformNames[i]+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(tmpTime))
 
-        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(readCount)+"\t"+str(isoformRelativeAbundances[i])+"\n") ## write results into specified file
-
+        #OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(readCount)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n") ## write results into specified file
+        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n")
 
 OUT.close()
             
