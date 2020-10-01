@@ -122,8 +122,11 @@ for gene in geneStructureInformation:
     # deal with gene and isoform length information in refgene file
     tmpisoinf = tmpgeneinf[5].split(";")
     tmpgeneinf[5] = tmpisoinf[0]
-    tmpisolength = tmpisoinf[1].split(",")
-    genelength = int(tmpisolength[0])
+    if len(tmpisoinf) == 2:
+        tmpisolength = tmpisoinf[1].split(",")
+        genelength = int(tmpisolength[0])
+    else:
+        genelength = 1
 
     ## load all reads information which were mapped to the specific gene within this loop using pysam
     for read in bamFilePysam.fetch(geneChr, geneStart, geneEnd):
