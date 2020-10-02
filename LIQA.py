@@ -28,15 +28,16 @@ if task == "refgene":
     os.system(myCommand)
 
 if task == "quantify":
-    validArgList = ["-task", "-refgene", "-bam", "-out", "-max_distance"]
-    addAbsPath = [0, 1, 1, 3, 0]
-    message = "LIQA.py -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance>"
+    validArgList = ["-task", "-refgene", "-bam", "-out", "-max_distance", "-f_weight"]
+    addAbsPath = [0, 1, 1, 3, 0, 0]
+    message = "LIQA.py -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance> -f_weight <weight of F function>"
     inputs = my.parse_argument(validArgList, addAbsPath, message)
     refFile = inputs[1]
     bamFile = inputs[2]
     outFile = inputs[3]
     misMatch = inputs[4]
-    myCommand = "python " + fileAbsPath + "/bin/LRSeq_new.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch
+    weightF = inputs[5]
+    myCommand = "python " + fileAbsPath + "/bin/LRSeq_new.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF
     os.system(myCommand)
 
 if task == "diff":

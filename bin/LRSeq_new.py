@@ -15,7 +15,7 @@ def auto_dict():
 ###############################################################################
 
 # checking whether argument is valid or not
-validArgList = ["-bam", "-ref", "-out", "-mismatch"]
+validArgList = ["-bam", "-ref", "-out", "-mismatch", "-f_weight"]
 for argIndex in range(1,len(sys.argv)):
     if sys.argv[argIndex][0] == "-" and sys.argv[argIndex] not in validArgList :
         print("Argument \'"+sys.argv[argIndex]+"\' is invalid!")
@@ -26,6 +26,7 @@ bamFileExists = 0
 refFileExists = 0
 outFileExists = 0
 misFileExists = 0
+weightFileExists = 0
 for argIndex in range(1,len(sys.argv)):
     if sys.argv[argIndex] == "-bam":  ## load in BAM file
         argIndex += 1
@@ -51,15 +52,22 @@ for argIndex in range(1,len(sys.argv)):
         #misTmp = sys.argv[argIndex].split("/")
         misMatch = int(sys.argv[argIndex])
         misFileExists = 1
+    elif sys.argv[argIndex] == "-f_weight":  ## weight of F function
+        argIndex += 1
+        #misFileAbsPath = os.path.dirname(os.path.abspath(sys.argv[argIndex]))
+        #misTmp = sys.argv[argIndex].split("/")
+        weightF = float(sys.argv[argIndex])
+        weightFileExists = 1
 
                                                 
 
-if bamFileExists == 0 or refFileExists == 0 or outFileExists == 0 or misFileExists == 0: ## lack enough arguments
+if bamFileExists == 0 or refFileExists == 0 or outFileExists == 0 or misFileExists == 0 or weightFileExists == 0: ## lack enough arguments
     print("Please provide arguments:")
     print("-bam\tIndexed bam file")
     print("-ref\tGene annotation file")
     print("-out\tOutput file")
     print("-max_distance\tMax distance")
+    print("-f_weight\tWeight of F function")
     sys.exit()
 
 
@@ -124,7 +132,14 @@ for gene in geneStructureInformation:
     tmpgeneinf[5] = tmpisoinf[0]
     if len(tmpisoinf) == 2:
         tmpisolength = tmpisoinf[1].split(",")
-        genelength = int(tmpisolength[0])
+        genelength = int(tmpisolength[0])-geneStart
+        for iii in range(len(tmpisolength)-1):
+            tmpisolength[iii] = (int(tmpisolength[iii]) - geneStart)
+            if tmpisolength[iii] == 666:
+                tmpisolength[iii] = 0
+            else:
+                tmpisolength[iii] = tmpisolength[iii]/2566
+            #print(gene+"\t"+str(tmpisolength[iii]))
     else:
         genelength = 1
 
@@ -502,13 +517,15 @@ for gene in geneStructureInformation:
     isoformRelativeAbundances = [None] * len(isoformNames)
     sumTheta = 0.0
     for i in range(len(Alpha)):
-        sumTheta += Alpha[i] / isoformLength[isoformNames[i]]
+        #sumTheta += Alpha[i] / isoformLength[isoformNames[i]] + weightF * tmpisolength[i]
+        sumTheta += Alpha[i] + weightF * tmpisolength[i]
 
     print(gene+"\t"+str(iterCount)+" iterations\tDone!")
 
     rpg_lengthcorrected = readCount/genelength*100
     for i in range(len(Alpha)):
-        isoformRelativeAbundances[i] = Alpha[i] / (isoformLength[isoformNames[i]] * sumTheta)
+        #isoformRelativeAbundances[i] = (Alpha[i]/isoformLength[isoformNames[i]]+tmpisolength[i]*weightF) /(sumTheta)
+        isoformRelativeAbundances[i] = (Alpha[i] + tmpisolength[i]*weightF) /(sumTheta)
         #print(gene+"\t"+str(geneCount)+"\t"+str(iterCount)+"\t"+isoformNames[i]+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(tmpTime))
 
         #OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(readCount)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n") ## write results into specified file
