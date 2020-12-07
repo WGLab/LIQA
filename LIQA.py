@@ -37,6 +37,8 @@ if task == "quantify":
     outFile = inputs[3]
     misMatch = inputs[4]
     weightF = inputs[5]
+    if !(weightF>0):
+        weightF = 0
     myCommand = "python " + fileAbsPath + "/bin/LRSeq_new.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF
     os.system(myCommand)
 
