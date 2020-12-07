@@ -48,7 +48,6 @@ def parse_argument(validArgList, addAbsPath, warnMessage):
                     if not check:
                         print(fileTmp+" does not exist!")
                         sys.exit()
-                
                 outList.append(fileTmp)
     
     if len(outList) != len(validArgList):

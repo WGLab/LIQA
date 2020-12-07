@@ -35,13 +35,14 @@ python LIQA.py -task refgene -ref example.refFile -out example.refgene
 ## Step 2: Quantify isoform expression
 In this step, user needs to give  `refgene_File`, `bam_file` to LIQA to estimate isoform expression using long-read RNA-seq data:
 ```
-python LIQA.py -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance>
+python LIQA.py -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance> -f_weight <weight of F function>
 ```
 where
 ```
 <bam>_file: A bam file.
 <refgene_file>: A reference file obtained from step 1.
 <max distance>: The maximum length of an alignment error at exon boundary. Recommend: 10.
+<weight of F function>: The weight for bias correction in isoform usage estimation. Recommend: 1
 ```
 
 ## Step 3: Detect differential splicing gene/isoform between conditions
