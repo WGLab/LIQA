@@ -142,6 +142,7 @@ for gene in geneStructureInformation:
             #print(gene+"\t"+str(tmpisolength[iii]))
     else:
         genelength = 1
+        tmpisolength = tmpisoinf[0].split(",")
         for iii in range(len(tmpisolength)-1):
             tmpisolength[iii] = 0
 
