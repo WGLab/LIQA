@@ -180,7 +180,7 @@ for gene in geneStructureInformation:
             sameReadCount[tmpReadName] += 1
                                         
         readStart[tmpReadName][sameReadCount[tmpReadName]] = tmpReadStart
-        readCigar[tmpReadName][sameReadCount[tmpReadName]] = tmpReadCigar
+        readCigar[tmpReadName][sameReadCount[tmpReadName]] = tmpReadCigar.replace('=', "M")
 
 
     ## load structure information of the specific gene within this loop                    
