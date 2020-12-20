@@ -142,6 +142,8 @@ for gene in geneStructureInformation:
             #print(gene+"\t"+str(tmpisolength[iii]))
     else:
         genelength = 1
+        for iii in range(len(tmpisolength)-1):
+            tmpisolength[iii] = 0
 
     ## load all reads information which were mapped to the specific gene within this loop using pysam
     for read in bamFilePysam.fetch(geneChr, geneStart, geneEnd):
