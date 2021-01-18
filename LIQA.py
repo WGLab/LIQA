@@ -49,3 +49,4 @@ if task == "diff":
     estFile = inputs[2]
     myCommand = "python " + fileAbsPath + "/bin/Diff.py -r " + refFile + " -est " + estFile
     os.system(myCommand)
+
