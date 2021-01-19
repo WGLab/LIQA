@@ -2,7 +2,7 @@
 
 The inputs of LIQA are aligned long-read RNA-seq data in BAM format and a reference isoform annotation file (Ensembl/Refseq). User needs to specify `-task` to perform in each step:
 ```
-LIQA.py -task <task>:
+liqa -task <task>:
 
         refgene:   preprocess reference file
         
@@ -27,15 +27,15 @@ LIQA requires a reference annotation file `example.refFile` in following format:
 ```
 Reference file in this format can be downloaded at [UCSC](https://genome.ucsc.edu/cgi-bin/hgTables?command=start) by selecting "all fields from selected table" in output format.
 
-We preprocess `example.refFile` by using `python LIQA.py -task refgene`. An example is given below.
+We preprocess `example.refFile` by using `liqa -task refgene`. An example is given below.
 ```
-python LIQA.py -task refgene -ref example.refFile -out example.refgene
+liqa -task refgene -ref example.refFile -out example.refgene
 ```
 
 ## Step 2: Quantify isoform expression
 In this step, user needs to give  `refgene_File`, `bam_file` to LIQA to estimate isoform expression using long-read RNA-seq data:
 ```
-python LIQA.py -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance> -f_weight <weight of F function>
+liqa -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance> -f_weight <weight of F function>
 ```
 where
 ```
@@ -48,7 +48,7 @@ where
 ## Step 3: Detect differential splicing gene/isoform between conditions
 In this step, user needs to give  `reference_File`, `isoform exression estimates` to LIQA to detect differential splicing gene/isoform.
 ```
-python LIQA.py -task diff -ref <reference_file> -est <isoformRelativeAbundances_estimations>
+liqa -task diff -ref <reference_file> -est <isoformRelativeAbundances_estimations>
 ```
 where
 ```
