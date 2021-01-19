@@ -2,7 +2,7 @@
 
 #### Install with pip
 
-The recommended way to nstall **liqa** is using [pip](https://pip.pypa.io/en/stable/):
+The recommended way to install **liqa** is using [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
 pip install liqa
