@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from bin import my_functions as my
+from liqa_bin import my_functions as my
 
 import os, sys
 fileAbsPath = os.path.abspath(os.path.dirname(__file__))
