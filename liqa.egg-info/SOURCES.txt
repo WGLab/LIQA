@@ -1,0 +1,13 @@
+LICENSE
+MANIFEST.in
+README.md
+setup.py
+liqa.egg-info/PKG-INFO
+liqa.egg-info/SOURCES.txt
+liqa.egg-info/dependency_links.txt
+liqa.egg-info/entry_points.txt
+liqa.egg-info/top_level.txt
+liqa_src/liqa.py
+liqa_src/liqa_bin/Diff.py
+liqa_src/liqa_bin/LRSeq_new.py
+liqa_src/liqa_bin/my_functions.py
