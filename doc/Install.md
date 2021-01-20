@@ -7,8 +7,8 @@
 		+ pysam
 		+ numpy
 		+ scipy
-    + lifelines
-    + copulas
+    		+ lifelines
+    		+ copulas
 
 ### Install with pip
 
