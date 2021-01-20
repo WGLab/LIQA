@@ -18,14 +18,14 @@ The required packages for running `liqa` are listed below:
 
 
 ## PyPI  
-The recommended way to install **liqa** is using [pip](https://pip.pypa.io/en/stable/):
+The recommended way to install `liqa` is using [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
 $ pip install liqa
 ```
 This will pull and install the latest stable release from [PyPi](https://pypi.org/).
 
-If you do not have permission (when you get a permission denied error), you should install liqa by 
+If you do not have permission (when you get a permission denied error), you should install `liqa` by 
 
 ```bash
 $ pip install --user liqa
