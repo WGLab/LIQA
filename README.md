@@ -21,4 +21,4 @@ If you have any questions/issues/bugs, please post them on [GitHub](https://gith
 
 ## Citation
 
-Yu Hu, Li Fang, Xuelian Chen, Jiang F. Zhong, Mingyao Li, Kai Wang. LIQA: Long-read Isoform Quantification and Analysis. 2020. bioRxiv do: [https://doi.org/10.1101/2020.09.09.289793](https://www.biorxiv.org/content/10.1101/2020.09.09.289793v1)
+Yu Hu, Li Fang, Xuelian Chen, Jiang F. Zhong, Mingyao Li, Kai Wang. LIQA: Long-read Isoform Quantification and Analysis. 2020. bioRxiv doi: [https://doi.org/10.1101/2020.09.09.289793](https://www.biorxiv.org/content/10.1101/2020.09.09.289793v1)
