@@ -10,13 +10,14 @@
 ```
 
 Following Python packages are required for running `liqa`: 
-1. Pysam
-2. Numpy
-3. Scipy
-4. Lifelines
-5. Copulas. 
 
-Among the packages, math, sys, os, re and time are included in the python standard library, meaning that they should be already installed with python.
+  - Pysam
+  - Numpy
+  - Scipy
+  - Lifelines
+  - Copulas 
+
+Among the required packages, `math`, `sys`, `os`, `re` and `time` are included in the python standard library, meaning that they should be already installed with python.
 
 ## PyPI  
 The recommended way to install `liqa` is using [pip](https://pip.pypa.io/en/stable/):
