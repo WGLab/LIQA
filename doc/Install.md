@@ -8,7 +8,7 @@
 >>>platform.python_version()
 #3.7.3
 ```
-### The required packages for running liqa are listed below:
+The required packages for running `liqa` are listed below:
 	* python packages:
 		+ pysam
 		+ numpy
@@ -41,7 +41,7 @@ pip install .
 ```
 
 ## Test
-You can check whether the installation in complete or not by:
+You can check whether the installation is complete by:
 ```bash
 $ liqa
 
