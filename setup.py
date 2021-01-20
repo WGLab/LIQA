@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="liqa",
-    version="1.1.6",
+    version="1.1.7",
     author="Yu Hu",
     author_email="huyu999999@gmail.com",
     description="A statistical tool to quantify isoform-specific expression using long-read RNA-seq",
@@ -18,7 +18,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    #install_requires=["pysam", "lifelines"],
+    install_requires=["pysam", "lifelines"],
     #python_requires='>=3.6',
     packages=["liqa_src","liqa_bin"],
     package_dir={"liqa_src":"liqa_src","liqa_bin":"liqa_src/liqa_bin"},
