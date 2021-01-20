@@ -45,12 +45,12 @@ You can check whether the installation in complete or not by:
 ```bash
 $ liqa
 
-Please specify task (liqa -task <task>):
+#Please specify task (liqa -task <task>):
 
-        refgene:   preprocess reference file
+#        refgene:   preprocess reference file
 
-        quantify:   quantify isoform expression
+#        quantify:   quantify isoform expression
 
-        diff:   detect differential splicing gene/isoform
+#        diff:   detect differential splicing gene/isoform
 
 ```
