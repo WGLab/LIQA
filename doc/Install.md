@@ -2,11 +2,10 @@
 
 ## Prerequisites:
 
-`liqa` has been tested on python 3.7.x. If you don’t know the version of python you can check it by:
-```python
->>>import platform
->>>platform.python_version()
-#3.7.3
+`liqa` has been tested on python 3.5, 3.6 and 3.7. If you don’t know the version of python you can check it by:
+```bash
+$ python --version
+# Python 3.7.3
 ```
 
 Following Python packages are required for running `liqa`: 
