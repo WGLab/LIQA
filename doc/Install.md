@@ -33,6 +33,14 @@ If you do not have permission (when you get a permission denied error), you shou
 $ pip install --user liqa
 ```
 
+**Note**: you need to make sure that the `pip` is for python3，or we should install `liqa` by
+```bash 
+python3 -m pip install liqa 
+#or
+pip3 install liqa
+```
+
+
 ## Github  
 Download the package from [Github](https://github.com/WGLab/LIQA) and install it locally:
 
