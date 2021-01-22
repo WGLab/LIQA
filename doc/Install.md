@@ -15,7 +15,7 @@ Following packages are required for running `liqa`:
     * Numpy
     * Scipy
     * Lifelines
-  -R:
+  - R:
     * gcmr
 
 Among the required packages, `math`, `sys`, `os`, `re` and `time` are included in the python standard library, meaning that they should be already installed with python.
