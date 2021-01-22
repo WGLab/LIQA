@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-from liqa_bin import my_functions as my
+from liqa_src import my_functions as my
 
 import os, sys
 
@@ -27,7 +27,8 @@ def main():
         inputs = my.parse_argument(validArgList, addAbsPath, message)
         refFile = inputs[1]
         outFile = inputs[2]
-        myCommand = "perl " + fileAbsPath + "/liqa_bin/PreProcess.pl -r " + refFile + " -o " + outFile
+        myCommand = "perl " + fileAbsPath + "/PreProcess.pl -r " + refFile + " -o " + outFile
+        #myCommand = "perl " + "liqa_bin/PreProcess.pl -r " + refFile + " -o " + outFile
         os.system(myCommand)
 
     if task == "quantify":
@@ -40,7 +41,8 @@ def main():
         outFile = inputs[3]
         misMatch = inputs[4]
         weightF = inputs[5]
-        myCommand = "python " + fileAbsPath + "/liqa_bin/quantify.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF
+        myCommand = "python " + fileAbsPath + "/quantify.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF
+        #myCommand = "python " + "liqa_bin/quantify.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF
         os.system(myCommand)
 
     if task == "diff":
@@ -51,9 +53,12 @@ def main():
         cdt1 = inputs[1]
         cdt2 = inputs[2]
         outFile = inputs[3]
-        myCommand = "perl " + fileAbsPath + "/liqa_bin/group_process.pl -gp1 " + cdt1 + " -gp2 " + cdt2 + " -o " + crtAbsPath + "/isoform_expression_summary"
+        myCommand = "perl " + fileAbsPath + "/group_process.pl -gp1 " + cdt1 + " -gp2 " + cdt2 + " -o " + crtAbsPath + "/isoform_expression_summary"
+        #myCommand = "perl " + "liqa_bin/group_process.pl -gp1 " + cdt1 + " -gp2 " + cdt2 + " -o " + crtAbsPath + "/isoform_expression_summary"
         os.system(myCommand)
-        myCommand = "Rscript " + fileAbsPath + "/liqa_bin/testDAS.R " + crtAbsPath + "/isoform_expression_summary " + outFile
+        
+        myCommand = "Rscript " + fileAbsPath + "/testDAS.R " + crtAbsPath + "/isoform_expression_summary " + outFile
+        #myCommand = "Rscript " + "liqa_bin/testDAS.R " + crtAbsPath + "/isoform_expression_summary " + outFile
         os.system(myCommand)
 
 if __name__ == "__main__":
