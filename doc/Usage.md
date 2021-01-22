@@ -13,7 +13,16 @@ liqa -task <task>:
 ```
 
 ## Step 1: Transform isoforms to compatible matrix based on reference annotation file
-LIQA requires a reference annotation file `example.refFile` in following format:
+LIQA accepts two formats of reference annotation file.
+### GTF format
+For example:
+```
+chr10   HAVANA  gene    121478334       121598458       .       -       .       gene_id "ENSG00000066468.22"; gene_type "protein_coding"; gene_name "FGFR2"; level 1; hgnc_id "HGNC:3689"; havana_gene "OTTHUMG00000019175.12";
+chr10   ENSEMBL transcript      121478334       121593967       .       -       .       gene_id "ENSG00000066468.22"; transcript_id "ENST00000369061.8"; gene_type "protein_coding"; gene_name "FGFR2"; transcript_type "protein_coding"; tra
+nscript_name "FGFR2-213"; level 3; protein_id "ENSP00000358057.4"; transcript_support_level "1"; hgnc_id "HGNC:3689"; tag "basic"; tag "CCDS"; ccdsid "CCDS44486.1"; havana_gene "OTTHUMG00000019175.12";
+```
+### UCSC all fields
+For example:
 ```
 749     NM_001397       chr1    -       21543739        21616982        21546447        21616907        19      21543739,21548239,21551742,21553651,21554423,21560050,21562342,21563238,21564626,21571481,21573713,21582439,21584017,21585185
 ,21586763,21599191,21605683,21616562,21616856,  21546624,21548335,21551933,21553719,21554534,21560154,21562420,21563337,21564737,21571596,21573856,21582631,21584083,21585332,21586885,21599404,21605825,21616649,21616982,     0       ECE1cmpl     cmpl    0,0,1,2,2,0,0,0,0,2,0,0,0,0,1,1,0,0,0,
@@ -25,13 +34,19 @@ LIQA requires a reference annotation file `example.refFile` in following format:
 ,21586763,21599191,21605683,    21546624,21548335,21551933,21553719,21554534,21560154,21562420,21563337,21564737,21571596,21573856,21582631,21584083,21585332,21586885,21599404,21606183,       0       ECE1    cmpl    cmpl    0,0,1,2,2,0,0
 ,0,0,2,0,0,0,0,1,1,0,
 ```
-Reference file in this format can be downloaded at [UCSC](https://genome.ucsc.edu/cgi-bin/hgTables?command=start) by selecting "all fields from selected table" in output format.
+This reference file in this format can be downloaded at [UCSC](https://genome.ucsc.edu/cgi-bin/hgTables?command=start) by selecting "all fields from selected table" in output format.
 
-We preprocess `example.refFile` by using `liqa -task refgene`. An example is given below.
-```
-liqa -task refgene -ref example.refFile -out example.refgene
-```
 
+We preprocess reference file by using `liqa -task refgene`. An example is given below.
+
+- For gtf format
+```
+liqa -task refgene -ref example.gtf -format gtf -out example.refgene
+```
+- For ucsc all fields:
+```
+liqa -task refgene -ref example.ucsc -format ucsc -out example.refgene
+```
 ## Step 2: Quantify isoform expression
 In this step, user needs to give  `refgene_File`, `bam_file` to LIQA to estimate isoform expression using long-read RNA-seq data:
 ```
