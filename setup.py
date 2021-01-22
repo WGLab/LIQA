@@ -24,7 +24,7 @@ setuptools.setup(
     #package_dir={"liqa_src":"liqa_src","liqa_bin":"liqa_src/liqa_bin"},
     packages=["liqa_src"],
     package_dir={"liqa_src":"liqa_src"},
-    scripts=["liqa_src/group_process.pl","liqa_src/testDAS.R"],
+    scripts=["liqa_src/group_process.pl","liqa_src/testDAS.R", "liqa_src/PreProcess.pl"],
     include_package_data=True,
     entry_points={
         "console_scripts": [
