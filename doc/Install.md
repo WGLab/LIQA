@@ -6,6 +6,8 @@
 ```bash
 $ python --version
 # Python 3.7.3
+$ R --version
+# R version 3.5.2
 ```
 
 Following packages are required for running `liqa`: 
