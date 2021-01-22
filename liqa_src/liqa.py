@@ -27,7 +27,7 @@ def main():
         inputs = my.parse_argument(validArgList, addAbsPath, message)
         refFile = inputs[1]
         outFile = inputs[2]
-        myCommand = "perl " + fileAbsPath + "/liqa_function/PreProcess.pl -r " + refFile + " -o " + outFile
+        myCommand = "perl " + fileAbsPath + "/liqa_bin/PreProcess.pl -r " + refFile + " -o " + outFile
         os.system(myCommand)
 
     if task == "quantify":
@@ -40,17 +40,20 @@ def main():
         outFile = inputs[3]
         misMatch = inputs[4]
         weightF = inputs[5]
-        myCommand = "python " + fileAbsPath + "/liqa_function/LRSeq_new.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF
+        myCommand = "python " + fileAbsPath + "/liqa_bin/quantify.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF
         os.system(myCommand)
 
     if task == "diff":
-        validArgList = ["-task", "-ref", "-est"]
-        addAbsPath = [0, 1, 1]
-        message = "liqa -task refgene -ref <refgene_file> -est <isoformRelativeAbundances_estimations>"
+        validArgList = ["-task", "-condition_1", "-condition_2", "-out"]
+        addAbsPath = [0, 1, 1, 3]
+        message = "liqa    -task diff\n\t-condition_1 <isoform_expression_estimation_file_for_condition1>\n\t-condition_2 <isoform_expression_estimation_file_for_condition2>\n\t-out <test_results_file>"
         inputs = my.parse_argument(validArgList, addAbsPath, message)
-        refFile = inputs[1]
-        estFile = inputs[2]
-        myCommand = "python " + fileAbsPath + "/liqa_function/Diff.py -r " + refFile + " -est " + estFile
+        cdt1 = inputs[1]
+        cdt2 = inputs[2]
+        outFile = inputs[3]
+        myCommand = "perl " + fileAbsPath + "/liqa_bin/group_process.pl -gp1 " + cdt1 + " -gp2 " + cdt2 + " -o " + crtAbsPath + "/isoform_expression_summary"
+        os.system(myCommand)
+        myCommand = "Rscript " + fileAbsPath + "/liqa_bin/testDAS.R " + crtAbsPath + "/isoform_expression_summary " + outFile
         os.system(myCommand)
 
 if __name__ == "__main__":
