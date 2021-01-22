@@ -2,7 +2,7 @@
 
 ## Prerequisites:
 
-`liqa` has been tested on python 3.5, 3.6 and 3.7. If you don’t know the version of python you can check it by:
+`liqa` has been tested on **python** 3.5, 3.6, 3.7 and **R** 3.5.2. If you don’t know the version of python you can check it by:
 ```bash
 $ python --version
 # Python 3.7.3
