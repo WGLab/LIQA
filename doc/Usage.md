@@ -46,7 +46,7 @@ where
 ```
 
 ## Step 3: Detect differential splicing gene/isoform between conditions
-In this step, user needs to give two lists of `isoform exression estimates` files for condition 1 and 2 to LIQA to detect differential splicing gene/isoform.
+In this step, user needs to give two lists of isoform expression estimates files for condition 1 and 2 to LIQA to detect differential splicing gene/isoform.
 ```
 liqa    -task diff
         -condition_1 <list_of_isoform_expression_estimation_file_for_condition1>
@@ -54,7 +54,7 @@ liqa    -task diff
         -out <test_results_file>
 
 ```
-Here are example of input lists for condition 1 and 2:
+Here are example format for input lists:
 
 List_Condition_1
 ```
@@ -68,6 +68,8 @@ List_Condition_2
 /home/huy4/tmp/liqa_das_tmp/isoform_estimates_condition1_sample2
 /home/huy4/tmp/liqa_das_tmp/isoform_estimates_condition1_sample3
 ```
+
+**Note**: user needs to provide the absolute path of each LIQA isoform estimates file
 
 Output:
 ```
