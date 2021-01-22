@@ -17,9 +17,8 @@ LIQA accepts two formats of reference annotation file.
 ### GTF format
 For example:
 ```
-chr10   HAVANA  gene    121478334       121598458       .       -       .       gene_id "ENSG00000066468.22"; gene_type "protein_coding"; gene_name "FGFR2"; level 1; hgnc_id "HGNC:3689"; havana_gene "OTTHUMG00000019175.12";
-chr10   ENSEMBL transcript      121478334       121593967       .       -       .       gene_id "ENSG00000066468.22"; transcript_id "ENST00000369061.8"; gene_type "protein_coding"; gene_name "FGFR2"; transcript_type "protein_coding"; tra
-nscript_name "FGFR2-213"; level 3; protein_id "ENSP00000358057.4"; transcript_support_level "1"; hgnc_id "HGNC:3689"; tag "basic"; tag "CCDS"; ccdsid "CCDS44486.1"; havana_gene "OTTHUMG00000019175.12";
+chr1    ncbiRefSeq      exon    24828834        24828953        .       +       .       gene_id "RCAN3"; transcript_id "NM_001251979.2"; exon_number "1"; exon_id "NM_001251979.2.1"; gene_name "RCAN3";
+chr1    ncbiRefSeq      exon    24840804        24841057        .       +       .       gene_id "RCAN3"; transcript_id "NM_001251979.2"; exon_number "2"; exon_id "NM_001251979.2.2"; gene_name "RCAN3";
 ```
 ### UCSC all fields
 For example:
@@ -34,10 +33,10 @@ For example:
 ,21586763,21599191,21605683,    21546624,21548335,21551933,21553719,21554534,21560154,21562420,21563337,21564737,21571596,21573856,21582631,21584083,21585332,21586885,21599404,21606183,       0       ECE1    cmpl    cmpl    0,0,1,2,2,0,0
 ,0,0,2,0,0,0,0,1,1,0,
 ```
-This reference file in this format can be downloaded at [UCSC](https://genome.ucsc.edu/cgi-bin/hgTables?command=start) by selecting "all fields from selected table" in output format.
+This reference file can be downloaded at [UCSC](https://genome.ucsc.edu/cgi-bin/hgTables?command=start) by selecting "all fields from selected table" in output format.
 
 
-We preprocess reference file by using `liqa -task refgene`. An example is given below.
+Then, we preprocess reference file by using `liqa -task refgene`. An example is given below.
 
 - For gtf format
 ```
@@ -47,6 +46,21 @@ liqa -task refgene -ref example.gtf -format gtf -out example.refgene
 ```
 liqa -task refgene -ref example.ucsc -format ucsc -out example.refgene
 ```
+The output isoform compatible matrix file `example.refgene` should be in following format:
+```
+RCAN3   chr1    +       24828840        24863510        NM_001251983,NM_001251978,NM_013441,NM_001251984,NM_001251979,NM_001251981,NM_001251977,NM_001251985,NM_001251982,NM_001251980,
+RCAN3   chr1    +       24828840        24828953        0,0,0,1,1,0,0,0,0,0,
+RCAN3   chr1    +       24829386        24829607        1,0,1,0,0,1,1,0,0,0,
+RCAN3   chr1    +       24829608        24829640        1,0,1,0,0,0,0,0,0,0,
+RCAN3   chr1    +       24834083        24834218        0,1,0,0,0,0,0,0,0,0,
+RCAN3   chr1    +       24840803        24841057        0,1,1,0,1,1,1,1,1,1,
+RCAN3   chr1    +       24857707        24857881        1,1,1,1,1,0,1,0,1,1,
+RCAN3   chr1    +       24859572        24859601        1,1,1,1,1,1,1,0,0,0,
+RCAN3   chr1    +       24859602        24859744        1,1,1,1,1,1,1,0,0,1,
+RCAN3   chr1    +       24861582        24863510        1,1,1,1,1,1,1,1,1,1,
+```
+**Note**: user needs specify correct reference file format (gtf or ucsc) in this step.
+
 ## Step 2: Quantify isoform expression
 In this step, user needs to give  `refgene_File`, `bam_file` to LIQA to estimate isoform expression using long-read RNA-seq data:
 ```
