@@ -8,6 +8,8 @@ liqa.egg-info/dependency_links.txt
 liqa.egg-info/entry_points.txt
 liqa.egg-info/requires.txt
 liqa.egg-info/top_level.txt
+liqa_src/PreProcess.pl
+liqa_src/PreProcess_gtf.pl
 liqa_src/group_process.pl
 liqa_src/liqa.py
 liqa_src/my_functions.py

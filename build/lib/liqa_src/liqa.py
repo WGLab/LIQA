@@ -21,15 +21,22 @@ def main():
         print("\tdiff:   detect differential splicing gene/isoform\n")
 
     if task == "refgene":
-        validArgList = ["-task", "-ref", "-out"]
-        addAbsPath = [0, 1, 3]
-        message = "liqa -task refgene -ref <reference_file> -out <output_file>"
+        validArgList = ["-task", "-ref", "-format", "-out"]
+        addAbsPath = [0, 1, 0, 3]
+        message = "liqa -task refgene -ref <reference_file> -format <reference_file_format(gtf/ucsc)> -out <output_file>"
         inputs = my.parse_argument(validArgList, addAbsPath, message)
         refFile = inputs[1]
-        outFile = inputs[2]
-        myCommand = "perl " + fileAbsPath + "/PreProcess.pl -r " + refFile + " -o " + outFile
-        #myCommand = "perl " + "liqa_bin/PreProcess.pl -r " + refFile + " -o " + outFile
-        os.system(myCommand)
+        formatFile = inputs[2]
+        outFile = inputs[3]
+
+        if (formatFile == "ucsc"):
+            myCommand = "perl " + fileAbsPath + "/PreProcess.pl -r " + refFile + " -o " + outFile
+            os.system(myCommand)
+        elif (formatFile == "gtf"):
+            myCommand = "perl " + fileAbsPath + "/PreProcess_gtf.pl -r " + refFile + " -o " + outFile
+            os.system(myCommand)
+        else:
+            print("Please specify reference file format: gtf/ucsc")
 
     if task == "quantify":
         validArgList = ["-task", "-refgene", "-bam", "-out", "-max_distance", "-f_weight"]

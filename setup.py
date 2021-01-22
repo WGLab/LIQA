@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="liqa",
-    version="1.1.10",
+    version="1.1.12",
     author="Yu Hu",
     author_email="huyu999999@gmail.com",
     description="A statistical tool to quantify isoform-specific expression using long-read RNA-seq",
@@ -24,7 +24,7 @@ setuptools.setup(
     #package_dir={"liqa_src":"liqa_src","liqa_bin":"liqa_src/liqa_bin"},
     packages=["liqa_src"],
     package_dir={"liqa_src":"liqa_src"},
-    scripts=["liqa_src/group_process.pl","liqa_src/testDAS.R", "liqa_src/PreProcess.pl"],
+    scripts=["liqa_src/group_process.pl","liqa_src/testDAS.R", "liqa_src/PreProcess.pl", "liqa_src/PreProcess_gtf.pl"],
     include_package_data=True,
     entry_points={
         "console_scripts": [
