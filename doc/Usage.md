@@ -93,9 +93,9 @@ List_Condition_1
 ```
 List_Condition_2
 ```
-/home/huy4/tmp/liqa_das_tmp/isoform_estimates_condition1_sample1
-/home/huy4/tmp/liqa_das_tmp/isoform_estimates_condition1_sample2
-/home/huy4/tmp/liqa_das_tmp/isoform_estimates_condition1_sample3
+/home/huy4/tmp/liqa_das_tmp/isoform_estimates_condition2_sample1
+/home/huy4/tmp/liqa_das_tmp/isoform_estimates_condition2_sample2
+/home/huy4/tmp/liqa_das_tmp/isoform_estimates_condition2_sample3
 ```
 
 **Note**: user needs to provide the absolute path for each LIQA isoform estimates file
