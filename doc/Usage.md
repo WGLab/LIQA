@@ -59,7 +59,7 @@ RCAN3   chr1    +       24859572        24859601        1,1,1,1,1,1,1,0,0,0,
 RCAN3   chr1    +       24859602        24859744        1,1,1,1,1,1,1,0,0,1,
 RCAN3   chr1    +       24861582        24863510        1,1,1,1,1,1,1,1,1,1,
 ```
-**Note**: user needs specify correct reference file format (gtf or ucsc) in this step.
+**Note**: user needs to specify correct reference file format (gtf or ucsc) in this step.
 
 ## Step 2: Quantify isoform expression
 In this step, user needs to give  `refgene_File`, `bam_file` to LIQA to estimate isoform expression using long-read RNA-seq data:
