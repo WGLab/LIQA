@@ -108,7 +108,7 @@ geneCount = 0
 startTime = time.time()
 
 #OUT.write("GeneName\tIsoformName\tNumberOfReads\tRelativeAbundance\n") ## Header of Results
-OUT.write("GeneName\tIsoformName\tRelativeAbundance\tReadPerGene_corrected\n")
+OUT.write("GeneName\tIsoformName\tReadPerGene_corrected\tRelativeAbundance\n")
 
 for gene in geneStructureInformation:
 
@@ -534,7 +534,7 @@ for gene in geneStructureInformation:
         rpg_lengthcorrected = readCount/genelength*100*isoformRelativeAbundances[i]
 
         #OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(readCount)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n") ## write results into specified file
-        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n")
+        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(rpg_lengthcorrected)+"\t"+str(isoformRelativeAbundances[i])+"\n")
 
 OUT.close()
             

@@ -83,6 +83,9 @@ foreach my $gene (keys %exonstarts) {
     }
 }
 
+my $number_genes = scalar keys %knownGene;
+print "$number_genes genes are being processed...\n";
+
 #open(REF, $ref
 open (RRR, ">$output");
 
