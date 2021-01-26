@@ -141,7 +141,7 @@ for gene in geneStructureInformation:
                 tmpisolength[iii] = tmpisolength[iii]/2566
             #print(gene+"\t"+str(tmpisolength[iii]))
     else:
-        genelength = 1
+        genelength = 100
         tmpisolength = tmpisoinf[0].split(",")
         for iii in range(len(tmpisolength)-1):
             tmpisolength[iii] = 0
@@ -525,11 +525,13 @@ for gene in geneStructureInformation:
 
     print(gene+"\t"+str(iterCount)+" iterations\tDone!")
 
-    rpg_lengthcorrected = readCount/genelength*100
+    #rpg_lengthcorrected = readCount/genelength*100
     for i in range(len(Alpha)):
         #isoformRelativeAbundances[i] = (Alpha[i]/isoformLength[isoformNames[i]]+tmpisolength[i]*weightF) /(sumTheta)
         isoformRelativeAbundances[i] = (Alpha[i] + tmpisolength[i]*weightF) /(sumTheta)
         #print(gene+"\t"+str(geneCount)+"\t"+str(iterCount)+"\t"+isoformNames[i]+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(tmpTime))
+        
+        rpg_lengthcorrected = readCount/genelength*100*isoformRelativeAbundances[i]
 
         #OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(readCount)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n") ## write results into specified file
         OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n")
