@@ -15,6 +15,10 @@ Please refer to [Installation](https://github.com/WGLab/LIQA/blob/master/doc/Ins
 ## Usage
 Please refere to [Usage](https://github.com/WGLab/LIQA/blob/master/doc/Usage.md) for how to use LIQA.
 
+## Examples isoform analysis using LIQA.
+
+Please refer to [Examples](https://github.com/WGLab/LIQA/blob/master/doc/Examples.md) for examples of how to use LIQA.
+
 ## Contact
 
 If you have any questions/issues/bugs, please post them on [GitHub](https://github.com/WGLab/LIQA/issues). They would also be helpful to other users. 
