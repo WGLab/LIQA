@@ -16,6 +16,7 @@ $ pwd
 ```
 liqa -task refgene -format gtf -ref sample.gtf -out sample.refgene
 ```
+Then, isoform compatible matrix will be saved to `sample.refgene`.
 
 ### Step 3. Quantify isoform expression using LIQA
 There are 10 samples to analyse. Please use following command to quantify isoform expression for each sample:
@@ -31,6 +32,7 @@ liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_e
 liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_9 -max_distance 20 -f_weight 0 -bam data/simu9.bam
 liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_10 -max_distance 20 -f_weight 0 -bam data/simu10.bam
 ```
+Then, the results will be under the directory of `estimation`.
 
 ### Step 4. Detect DAS genes using LIQA
 It is assumed that sample 1 to 5 belong to group 1 and sample 6 to 10 belong to group 2. The following lists summarized isoform expression estimates file for each group:
@@ -52,3 +54,5 @@ Then, please using following command to detect DAS genes:
 ```
 liqa -task diff -condition_1 list1 -condition_2 list2 -out das_detection_results
 ```
+Then, the results will be saved to `das_detection_results`.
+
