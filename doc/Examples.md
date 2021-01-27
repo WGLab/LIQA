@@ -21,16 +21,16 @@ Then, isoform compatible matrix will be saved to `sample.refgene`.
 ### Step 3. Quantify isoform expression using LIQA
 There are 10 samples to analyse. Please use following command to quantify isoform expression for each sample:
 ```
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_1 -max_distance 20 -f_weight 0 -bam data/simu1.bam
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_2 -max_distance 20 -f_weight 0 -bam data/simu2.bam
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_3 -max_distance 20 -f_weight 0 -bam data/simu3.bam
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_4 -max_distance 20 -f_weight 0 -bam data/simu4.bam
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_5 -max_distance 20 -f_weight 0 -bam data/simu5.bam
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_6 -max_distance 20 -f_weight 0 -bam data/simu6.bam
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_7 -max_distance 20 -f_weight 0 -bam data/simu7.bam
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_8 -max_distance 20 -f_weight 0 -bam data/simu8.bam
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_9 -max_distance 20 -f_weight 0 -bam data/simu9.bam
-liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_10 -max_distance 20 -f_weight 0 -bam data/simu10.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_1 -max_distance 20 -f_weight 1 -bam data/simu1.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_2 -max_distance 20 -f_weight 1 -bam data/simu2.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_3 -max_distance 20 -f_weight 1 -bam data/simu3.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_4 -max_distance 20 -f_weight 1 -bam data/simu4.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_5 -max_distance 20 -f_weight 1 -bam data/simu5.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_6 -max_distance 20 -f_weight 1 -bam data/simu6.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_7 -max_distance 20 -f_weight 1 -bam data/simu7.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_8 -max_distance 20 -f_weight 1 -bam data/simu8.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_9 -max_distance 20 -f_weight 1 -bam data/simu9.bam
+liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_10 -max_distance 20 -f_weight 1 -bam data/simu10.bam
 ```
 Then, the results will be under the directory of `estimation`.
 
