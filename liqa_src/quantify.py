@@ -88,6 +88,9 @@ with open(refGeneFile, "r") as FP:
             geneLineCount[gene] += 1
             geneStructureInformation[gene][geneLineCount[gene]] = line
 
+if weightF <= 1:
+    weightF = 0
+
 
 #####################################
 ## Using pysam to read in bam file !!
