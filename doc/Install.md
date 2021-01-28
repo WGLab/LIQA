@@ -59,7 +59,7 @@ You can check whether the installation is complete by:
 ```bash
 $ liqa
 
-#Please specify task (liqa -task <task>):
+# Please specify task (liqa -task <task>):
 #
 #        refgene:   preprocess reference file
 #
