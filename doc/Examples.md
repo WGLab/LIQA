@@ -1,7 +1,7 @@
 # Demo and Examples
 This section contains examples isoform analysis using LIQA. It is assumed that LIQA has been successfully installed. If not, please install it and its required packages first according to the [Installation](https://github.com/WGLab/LIQA/blob/master/doc/Install.md).
 
-### Step 1. Download the example data
+### Step 1. Downloading the example data
 
 To prepare to run LIQA, please download the [LIQA_example](https://github.com/WGLab/LIQA/releases/tag/1.0.0) from release page. Then, extract example data by:
 ```
@@ -12,13 +12,13 @@ Next, please make sure current working directory is `LIQA_example` by:
 $ pwd
 /home/huy4/bin/LIQA_example
 ```
-### Step 2. Convert the reference annotation file to isoform compatible matrix
+### Step 2. Converting the reference annotation file to isoform compatible matrix
 ```
 liqa -task refgene -format gtf -ref sample.gtf -out sample.refgene
 ```
 Then, isoform compatible matrix will be saved to `sample.refgene`.
 
-### Step 3. Quantify isoform expression using LIQA
+### Step 3. Quantifying isoform expression using LIQA
 There are 10 samples to analyse. Please use following command to quantify isoform expression for each sample:
 ```
 liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_1 -max_distance 20 -f_weight 1 -bam data/simu1.bam
@@ -34,7 +34,7 @@ liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_e
 ```
 Then, the results will be under the directory of `estimation`.
 
-### Step 4. Detect DAS genes using LIQA
+### Step 4. Detecting DAS genes using LIQA
 It is assumed that sample 1 to 5 belong to group 1 and sample 6 to 10 belong to group 2. The following lists summarized isoform expression estimates file for each group:
 ```bash
 $ more list1
