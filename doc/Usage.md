@@ -13,7 +13,7 @@ liqa -task <task>:
 ```
 
 ## Step 1: Transform isoforms to compatible matrix based on reference annotation file
-LIQA accepts two formats of reference annotation file. User can download example reference file and data under the [example directory]():
+LIQA accepts two formats of reference annotation file. User can download example reference file and data under the [example directory](https://github.com/WGLab/LIQA/tree/master/example):
 ### GTF format
 For example:
 ```
@@ -74,6 +74,10 @@ where
 <weight of F function>: The weight for bias correction in isoform usage estimation. Recommend: 1
 ```
 
+For example:
+```
+liqa -task quantify -refgene example.refgene -bam example.bam -out isoform_expression_estimates -max_distance 20 -f_weight 1
+```
 ## Step 3: Detect differential splicing gene/isoform between conditions
 In this step, user needs to give two lists of isoform expression estimates files for condition 1 and 2 to use LIQA for differential splicing gene/isoform detection.
 ```
