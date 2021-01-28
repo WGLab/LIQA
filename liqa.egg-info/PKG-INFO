@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: liqa
-Version: 1.1.15
+Version: 1.1.16
 Summary: A statistical tool to quantify isoform-specific expression using long-read RNA-seq
 Home-page: https://github.com/WGLab/LIQA
 Author: Yu Hu
@@ -22,6 +22,10 @@ Description: # Long-read Isoform Quantification and Analysis
         
         ## Usage
         Please refere to [Usage](https://github.com/WGLab/LIQA/blob/master/doc/Usage.md) for how to use LIQA.
+        
+        ## Examples isoform analysis using LIQA.
+        
+        Please refer to [Examples](https://github.com/WGLab/LIQA/blob/master/doc/Examples.md) for examples of how to use LIQA.
         
         ## Contact
         

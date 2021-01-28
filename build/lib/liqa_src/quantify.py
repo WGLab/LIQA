@@ -88,6 +88,9 @@ with open(refGeneFile, "r") as FP:
             geneLineCount[gene] += 1
             geneStructureInformation[gene][geneLineCount[gene]] = line
 
+if weightF <= 1:
+    weightF = 0
+
 
 #####################################
 ## Using pysam to read in bam file !!
@@ -108,7 +111,7 @@ geneCount = 0
 startTime = time.time()
 
 #OUT.write("GeneName\tIsoformName\tNumberOfReads\tRelativeAbundance\n") ## Header of Results
-OUT.write("GeneName\tIsoformName\tRelativeAbundance\tReadPerGene_corrected\n")
+OUT.write("GeneName\tIsoformName\tReadPerGene_corrected\tRelativeAbundance\n")
 
 for gene in geneStructureInformation:
 
@@ -534,7 +537,7 @@ for gene in geneStructureInformation:
         rpg_lengthcorrected = readCount/genelength*100*isoformRelativeAbundances[i]
 
         #OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(readCount)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n") ## write results into specified file
-        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n")
+        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(rpg_lengthcorrected)+"\t"+str(isoformRelativeAbundances[i])+"\n")
 
 OUT.close()
             
