@@ -17,8 +17,17 @@ LIQA accepts two formats of reference annotation file. User can download the exa
 ### GTF format
 For example:
 ```
-chr1    ncbiRefSeq      exon    24828834        24828953        .       +       .       gene_id "RCAN3"; transcript_id "NM_001251979.2"; exon_number "1"; exon_id "NM_001251979.2.1"; gene_name "RCAN3";
-chr1    ncbiRefSeq      exon    24840804        24841057        .       +       .       gene_id "RCAN3"; transcript_id "NM_001251979.2"; exon_number "2"; exon_id "NM_001251979.2.2"; gene_name "RCAN3";
+chr21   HAVANA  gene    25639258        25717562        .       +       .       gene_id "ENSG00000154721.15"; gene_type "protein_coding"; gene_name "JAM2"; level 2; hgnc_id "HGNC:14686"; tag "overlapping_locus"; havana_gene "OTTHUMG00000
+078441.4";
+chr21   HAVANA  transcript      25639258        25717562        .       +       .       gene_id "ENSG00000154721.15"; transcript_id "ENST00000480456.6"; gene_type "protein_coding"; gene_name "JAM2"; transcript_type "protein_coding"; tran
+script_name "JAM2-206"; level 2; protein_id "ENSP00000420419.1"; transcript_support_level "1"; hgnc_id "HGNC:14686"; tag "basic"; tag "MANE_Select"; tag "appris_principal_3"; tag "CCDS"; ccdsid "CCDS42911.1"; havana_gene "OTTHUMG00000078
+441.4"; havana_transcript "OTTHUMT00000171347.2";
+chr21   HAVANA  exon    25639258        25639888        .       +       .       gene_id "ENSG00000154721.15"; transcript_id "ENST00000480456.6"; gene_type "protein_coding"; gene_name "JAM2"; transcript_type "protein_coding"; transcript_n
+ame "JAM2-206"; exon_number 1; exon_id "ENSE00003843052.1"; level 2; protein_id "ENSP00000420419.1"; transcript_support_level "1"; hgnc_id "HGNC:14686"; tag "basic"; tag "MANE_Select"; tag "appris_principal_3"; tag "CCDS"; ccdsid "CCDS42
+911.1"; havana_gene "OTTHUMG00000078441.4"; havana_transcript "OTTHUMT00000171347.2";
+chr21   HAVANA  CDS     25639822        25639888        .       +       0       gene_id "ENSG00000154721.15"; transcript_id "ENST00000480456.6"; gene_type "protein_coding"; gene_name "JAM2"; transcript_type "protein_coding"; transcript_n
+ame "JAM2-206"; exon_number 1; exon_id "ENSE00003843052.1"; level 2; protein_id "ENSP00000420419.1"; transcript_support_level "1"; hgnc_id "HGNC:14686"; tag "basic"; tag "MANE_Select"; tag "appris_principal_3"; tag "CCDS"; ccdsid "CCDS42
+911.1"; havana_gene "OTTHUMG00000078441.4"; havana_transcript "OTTHUMT00000171347.2";
 ```
 ### UCSC all fields
 For example:
