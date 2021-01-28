@@ -27,14 +27,14 @@ Among the required packages, `math`, `sys`, `os`, `re` and `time` are included i
 The recommended way to install `liqa` is using [pip](https://pip.pypa.io/en/stable/):
 
 ```bash
-$ pip install liqa
+pip install liqa
 ```
 This will pull and install the latest stable release from [PyPi](https://pypi.org/).
 
 If you do not have permission (when you get a permission denied error), you should install `liqa` by 
 
 ```bash
-$ pip install --user liqa
+pip install --user liqa
 ```
 
 **Note**: you need to make sure that the `pip` is for python3，or we should install `liqa` by
