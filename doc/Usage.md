@@ -104,6 +104,8 @@ List_Condition_2
 
 **Note**: user needs to provide the absolute path for each LIQA isoform estimates file
 
+User can download the DAS detection example data from the [release page](https://github.com/WGLab/LIQA/releases/tag/1.0.0) and follow the command in [Demo and Examples](https://github.com/WGLab/LIQA/blob/master/doc/Examples.md)
+
 Output:
 ```
 	"geneDASResults" file: Gene-based test results file with 3 columns:
