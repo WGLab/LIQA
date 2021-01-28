@@ -13,7 +13,7 @@ liqa -task <task>:
 ```
 
 ## Step 1: Transforming isoforms to compatible matrix based on reference annotation file
-LIQA accepts two formats of reference annotation file. User can download example reference file and data under the [example directory](https://github.com/WGLab/LIQA/tree/master/example):
+LIQA accepts two formats of reference annotation file. User can download the example reference file and data from the [example directory](https://github.com/WGLab/LIQA/tree/master/example):
 ### GTF format
 For example:
 ```
