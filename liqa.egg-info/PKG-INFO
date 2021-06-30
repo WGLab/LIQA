@@ -1,12 +1,15 @@
 Metadata-Version: 2.1
 Name: liqa
-Version: 1.1.16
+Version: 1.1.18
 Summary: A statistical tool to quantify isoform-specific expression using long-read RNA-seq
 Home-page: https://github.com/WGLab/LIQA
 Author: Yu Hu
 Author-email: huyu999999@gmail.com
 License: MIT
 Description: # Long-read Isoform Quantification and Analysis
+        
+        [![DOI](https://zenodo.org/badge/257630000.svg)](https://zenodo.org/badge/latestdoi/257630000)
+        
         LIQA (Long-read Isoform Quantification and Analysis) is an Expectation-Maximization based statistical method to quantify isoform expression and detect differential alternative splicing (DAS) events using long-read RNA-seq data. LIQA incorporates base-pair quality score and isoform-specific read length information to assign different weights across reads instead of summarizing isoform-specific read counts directly. Moreover, LIQA can detect DAS events between conditions using isoform usage estimates.
         
         ## Computational pipeline of LIQA
@@ -23,9 +26,9 @@ Description: # Long-read Isoform Quantification and Analysis
         ## Usage
         Please refere to [Usage](https://github.com/WGLab/LIQA/blob/master/doc/Usage.md) for how to use LIQA.
         
-        ## Examples isoform analysis using LIQA.
+        ## Examples of isoform analysis using LIQA.
         
-        Please refer to [Examples](https://github.com/WGLab/LIQA/blob/master/doc/Examples.md) for examples of how to use LIQA.
+        Please refer to [Demo and Examples](https://github.com/WGLab/LIQA/blob/master/doc/Examples.md) for examples of how to use LIQA.
         
         ## Contact
         

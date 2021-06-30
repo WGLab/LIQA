@@ -9,7 +9,7 @@ input.file <- commandArgs(trailingOnly = TRUE)
 #raw.data <- read.table("isoest")
 
 raw.data <- read.table(input.file[1])
-gene.list <- levels(raw.data$V1)
+gene.list <- unique(raw.data$V1)
 generesultfile <- input.file[2]
 exonresultfile <- input.file[3]
 
@@ -110,7 +110,9 @@ cat("Done!\n")
 
 # summarize gene based results
 test.result.gene <- data.frame(result.gene.col,gene.p.value.list)
+if(is.null(test.result.gene) == F){
 colnames(test.result.gene) <- c("gene","pvalue")
+}
 write.table(test.result.gene,file=generesultfile,row.names = FALSE,quote=F, sep="\t", col.names=F)
 
 # summarize exon based results
