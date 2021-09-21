@@ -5,11 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="liqa",
-<<<<<<< HEAD
-    version="1.1.17",
-=======
-    version="1.1.18",
->>>>>>> 58b004232de5e2ba3c04740399e4431f0514dc0b
+    version="1.1.20",
     author="Yu Hu",
     author_email="huyu999999@gmail.com",
     description="A statistical tool to quantify isoform-specific expression using long-read RNA-seq",

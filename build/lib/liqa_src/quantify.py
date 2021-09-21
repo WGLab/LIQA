@@ -459,7 +459,7 @@ for gene in geneStructureInformation:
     for i in range(len(isoformNames)):
         if not bool(isoformLength[isoformNames[i]]): isoformLength[isoformNames[i]] = 0
         for readName in qualifiedRead:
-            if isoformLength[isoformNames[i]] > 0: Hfunction[readName][isoformNames[i]] = float(1) / isoformLength[isoformNames[i]]
+            if isoformLength[isoformNames[i]] > 0: Hfunction[readName][isoformNames[i]] = float(1)
             else: Hfunction[readName][isoformNames[i]] = 0
 
     #########################################################################################################

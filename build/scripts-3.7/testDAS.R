@@ -10,8 +10,8 @@ input.file <- commandArgs(trailingOnly = TRUE)
 
 raw.data <- read.table(input.file[1])
 gene.list <- unique(raw.data$V1)
-#generesultfile <- input.file[2]
-#exonresultfile <- input.file[3]
+generesultfile <- input.file[2]
+exonresultfile <- input.file[3]
 
 ## set columns of data frame
 test.result <- NA
