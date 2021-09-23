@@ -65,7 +65,12 @@ RCAN3   chr1    +       24861582        24863510        1,1,1,1,1,1,1,1,1,1,
 **Note**: user needs to specify correct reference file format (gtf or ucsc) in this step.
 
 ## Step 2: Quantifying isoform expression
-In this step, user needs to give  `refgene_File`, `bam_file` to LIQA to estimate isoform expression using long-read RNA-seq data:
+In this step, user is first suggested to perform reads filtering using samtools:
+```
+samtools view bam_file -F 2308 -q 50 -O BAM -o bam_filtered
+```
+
+Then, user needs to give  `refgene_File`, `bam_file` to LIQA to estimate isoform expression using long-read RNA-seq data:
 ```
 liqa -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance> -f_weight <weight of F function>
 ```
