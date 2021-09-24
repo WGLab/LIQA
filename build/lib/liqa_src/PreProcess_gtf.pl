@@ -62,8 +62,8 @@ foreach my $gene (keys %exonstarts) {
         my @sss = split(";", $exonstarts{$gene}{$trans});
         my @eee = split(";", $exonends{$gene}{$trans});
 
-        my @sss_sort = sort @sss;
-        my @eee_sort = sort @eee;
+        my @sss_sort = sort {$a <=> $b} @sss;
+        my @eee_sort = sort {$a <=> $b} @eee;
 
         my $starts;
         my $ends;
