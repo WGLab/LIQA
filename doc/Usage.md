@@ -78,8 +78,8 @@ where
 ```
 <bam>_file: A bam file.
 <refgene_file>: A reference file obtained from step 1.
-<max distance>: The maximum length of an alignment error at exon boundary. Recommend: 20.
-<weight of F function>: The weight for bias correction in isoform usage estimation. Recommend: 1
+<max distance>: The maximum length of an alignment error at exon boundary. Recommend: 10.
+<weight of F function>: The weight for bias correction in isoform usage estimation (between 0 and 10). Recommend: 1
 ```
 
 For example:
