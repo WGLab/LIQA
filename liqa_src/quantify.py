@@ -88,9 +88,9 @@ with open(refGeneFile, "r") as FP:
             geneLineCount[gene] += 1
             geneStructureInformation[gene][geneLineCount[gene]] = line
 
-if weightF <= 1:
-    weightF = 0
-
+#if weightF <= 1:
+    #weightF = 0
+infthreshold = float(weightF)/10.0
 
 #####################################
 ## Using pysam to read in bam file !!
@@ -111,7 +111,7 @@ geneCount = 0
 startTime = time.time()
 
 #OUT.write("GeneName\tIsoformName\tNumberOfReads\tRelativeAbundance\n") ## Header of Results
-OUT.write("GeneName\tIsoformName\tReadPerGene_corrected\tRelativeAbundance\n")
+OUT.write("GeneName\tIsoformName\tReadPerGene_corrected\tRelativeAbundance\tinfor_ratio\n")
 
 for gene in geneStructureInformation:
 
@@ -219,14 +219,17 @@ for gene in geneStructureInformation:
     ##################################################################################################################################################
 
     qualifiedRead = auto_dict()
+    prereadCount = 0
     readCount = 0
+    readCount1iso = 0
     fragmentStart = auto_dict()
     fragmentEnd = auto_dict()
     CompatibleMatrix = auto_dict()
     tmpCompatibleMatrix = auto_dict()
+    qualitycheck = auto_dict()
     
     for readName in sameReadCount:
-
+        
         # load CIGAR information
         cigarNumberRead1 = auto_dict()
         cigarNumberRead2 = auto_dict()
@@ -236,6 +239,7 @@ for gene in geneStructureInformation:
         cigarInfCountRead2 = 0
         cigarInfCountRead1tmp = 0
         cigarInfCountRead2tmp = 0
+        qualitycheck[readName] = 0
         
         tmp1 = re.split("([A-Z])",readCigar[readName][1])
         for i in range(len(tmp1)-1):
@@ -366,19 +370,25 @@ for gene in geneStructureInformation:
                 ##################################################################################################################################################
                 ## fill in compatible matrix ##
                 if tmpcount1 > 0 or (tmpcount2 > 0 and sameReadCount[readName] == 2):
-                    readCount += 1
-                    qualifiedRead[readName] = 1
+                    prereadCount += 1
                     for i in range(len(isoformNames)):
                         CompatibleMatrix[readName][isoformNames[i]] = compatibleVector[i]
                         tmpCompatibleMatrix[readName][isoformNames[i]] = compatibleVector[i]
-                
-
+                        qualitycheck[readName] += compatibleVector[i]
+                    if qualitycheck[readName] > 0:
+                        qualifiedRead[readName] = 1
+                        #readCount += 1
+                    if qualitycheck[readName] == 1:
+                        readCount1iso += 1
+                    readCount += 1
 
     ### COMPATIBLE MATRIX OBTAINED !!!
     ###############################################################################################################
     
     if readCount == 0: continue
-    print(gene+"\t"+str(readCount)+" reads detected...")
+    fisherinf = readCount1iso/float(prereadCount)
+    if fisherinf < infthreshold: continue
+    print(gene+"\tprocessing...")
     
     ##############################################################################################################
     ### ANALYZE EMPIRICAL READS DISTRIBUTION BASED ON NON-PARAMATRIC METHOD
@@ -452,7 +462,7 @@ for gene in geneStructureInformation:
 
     ########################################################################################################            
     ## UPDATE empirical probability of read mapped to the specific position
-
+ 
     Hfunction = auto_dict()
     numerator = auto_dict()
     numeratorKnown = auto_dict()
@@ -524,20 +534,21 @@ for gene in geneStructureInformation:
     sumTheta = 0.0
     for i in range(len(Alpha)):
         #sumTheta += Alpha[i] / isoformLength[isoformNames[i]] + weightF * tmpisolength[i]
-        sumTheta += Alpha[i] + weightF * tmpisolength[i]
+        sumTheta += Alpha[i] #+ weightF * tmpisolength[i]
 
     print(gene+"\t"+str(iterCount)+" iterations\tDone!")
-
+    
     #rpg_lengthcorrected = readCount/genelength*100
     for i in range(len(Alpha)):
         #isoformRelativeAbundances[i] = (Alpha[i]/isoformLength[isoformNames[i]]+tmpisolength[i]*weightF) /(sumTheta)
-        isoformRelativeAbundances[i] = (Alpha[i] + tmpisolength[i]*weightF) /(sumTheta)
+        #isoformRelativeAbundances[i] = (Alpha[i] + tmpisolength[i]*weightF) /(sumTheta)
+        isoformRelativeAbundances[i] = (Alpha[i]) /(sumTheta)
         #print(gene+"\t"+str(geneCount)+"\t"+str(iterCount)+"\t"+isoformNames[i]+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(tmpTime))
         
         rpg_lengthcorrected = readCount/genelength*100*isoformRelativeAbundances[i]
 
         #OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(readCount)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n") ## write results into specified file
-        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(rpg_lengthcorrected)+"\t"+str(isoformRelativeAbundances[i])+"\n")
+        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(rpg_lengthcorrected)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(fisherinf)+"\n")
 
 OUT.close()
             
