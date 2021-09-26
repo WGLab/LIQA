@@ -31,6 +31,11 @@ pip install liqa
 ```
 This will pull and install the latest stable release from [PyPi](https://pypi.org/).
 
+If you already have `liqa` installed, please upgrade it to the latest version to avoid few bugs by:
+```bash
+pip install liqa --upgrade
+```
+
 If you do not have permission (when you get a permission denied error), you should install `liqa` by 
 
 ```bash
