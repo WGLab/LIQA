@@ -1,4 +1,4 @@
-# Long-read Isoform Quantification and Analysis
+# Long-read Isoform Quantification and Analysis 
 
 [![DOI](https://zenodo.org/badge/257630000.svg)](https://zenodo.org/badge/latestdoi/257630000)
 
