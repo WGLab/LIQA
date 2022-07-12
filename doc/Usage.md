@@ -119,6 +119,5 @@ Output:
 	"geneDASResults" file: Gene-based test results file with 3 columns:
 		• Column 1: gene name
 		• Column 2: test P-Value
-		• Column 3: Hellinger distance which measures the splicing difference between two conditions for a gene in terms of isoform relative abundances
 		
 ```
