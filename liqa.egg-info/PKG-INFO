@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: liqa
-Version: 1.1.22
+Version: 1.1.23
 Summary: A statistical tool to quantify isoform-specific expression using long-read RNA-seq
 Home-page: https://github.com/WGLab/LIQA
 Author: Yu Hu
@@ -13,7 +13,7 @@ Classifier: Operating System :: OS Independent
 Description-Content-Type: text/markdown
 License-File: LICENSE
 
-# Long-read Isoform Quantification and Analysis
+# Long-read Isoform Quantification and Analysis 
 
 [![DOI](https://zenodo.org/badge/257630000.svg)](https://zenodo.org/badge/latestdoi/257630000)
 

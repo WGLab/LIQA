@@ -227,6 +227,10 @@ for gene in geneStructureInformation:
     CompatibleMatrix = auto_dict()
     tmpCompatibleMatrix = auto_dict()
     qualitycheck = auto_dict()
+    readEnd1 = auto_dict()
+    readEnd2 = auto_dict()
+    Tforkmf = []
+    Eforkmf = []
     
     for readName in sameReadCount:
         
@@ -240,6 +244,8 @@ for gene in geneStructureInformation:
         cigarInfCountRead1tmp = 0
         cigarInfCountRead2tmp = 0
         qualitycheck[readName] = 0
+        readEnd1[readName] = 0
+        readEnd2[readName] = 1
         
         tmp1 = re.split("([A-Z])",readCigar[readName][1])
         for i in range(len(tmp1)-1):
@@ -274,6 +280,7 @@ for gene in geneStructureInformation:
         if sameReadCount[readName] == 2:
             fragmentStart[readName] = readStart[readName][2] if readStart[readName][1] >= readStart[readName][2] else readStart[readName][1]
             fragmentEnd[readName] = readEnd[readName][1] if readEnd[readName][1] >= readEnd[readName][2] else readEnd[readName][2]
+            readEnd2[readName] = 0
 
         if sameReadCount[readName] == 1:
             fragmentStart[readName] = readStart[readName][1]
@@ -302,10 +309,13 @@ for gene in geneStructureInformation:
                     
                     if cigarMatchRead1[i] == "M": ## matched CIGAR
 
+                        readEnd1[readName] += cigarNumberRead1[i]
                         for j in range(1,cigarNumberRead1[i]+1):
                             tmpbase = base1 + j
                             for k in range(len(exonStarts)):
-                                if exonIndicatorRead1[k] > misMatch: continue
+                                if exonIndicatorRead1[k] > misMatch:
+                                    continue
+                                
                                 if tmpbase >= exonStarts[k] and tmpbase <= exonEnds[k]: exonIndicatorRead1[k] += 1 ## confirm that the read covers this exon
         
                         base1 += cigarNumberRead1[i] # jump to next match information
@@ -399,6 +409,16 @@ for gene in geneStructureInformation:
     readsDistributionIsoformKnown = auto_dict()
     denominatorKnown = auto_dict()
     denominator = auto_dict()
+    Hfunction = auto_dict()
+
+    for readName in qualifiedRead:
+        Tforkmf.append(readEnd1[readName])
+        Eforkmf.append(readEnd2[readName])
+        #print(readEnd2[readName])
+
+    kmf.fit(Tforkmf, event_observed=Eforkmf)
+    res = kmf.survival_function_
+    res = res.reset_index()
     
     for i in range(len(isoformNames)):
         for readName in qualifiedRead:
@@ -437,13 +457,21 @@ for gene in geneStructureInformation:
                         tmpEnd = exonEnds[j-1]
                     if fragmentEnd[readName] > exonEnds[j]:
                         tmpEnd = exonEnds[j]
+            for ind in res.index:
+                #if ind > res.shape[0]-1: break
+                #print(res.shape[0])
+                if res['timeline'][ind] <= readEnd1[readName] and ind < (res.shape[0]-2):
+                    if res['timeline'][ind+1] > readEnd1[readName]:
+                        Hfunction[readName] = res['KM_estimate'][ind]
+                        #print(res['KM_estimate'][ind])
 
             ## Valid position obtained
             #################################################################
 
             fragmentStart[readName] = tmpStart ## new starts and end position updated
             fragmentEnd[readName] = tmpEnd
-
+            
+            
             
     #####################################################################################################
     ## EM algorithm
