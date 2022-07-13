@@ -50,7 +50,7 @@ estimation/isoform_expression_estimates_8
 estimation/isoform_expression_estimates_9
 estimation/isoform_expression_estimates_10
 ```
-Then, please using following command to detect DAS genes:
+Then, please use following command to detect DAS genes:
 ```
 liqa -task diff -condition_1 list1 -condition_2 list2 -out das_detection_results
 ```
