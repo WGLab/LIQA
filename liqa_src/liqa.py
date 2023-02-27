@@ -39,8 +39,8 @@ def main():
             print("Please specify reference file format: gtf/ucsc")
 
     if task == "quantify":
-        validArgList = ["-task", "-refgene", "-bam", "-out", "-max_distance", "-f_weight"]
-        addAbsPath = [0, 1, 1, 3, 0, 0]
+        validArgList = ["-task", "-refgene", "-bam", "-out", "-max_distance", "-f_weight", "-threads"]
+        addAbsPath = [0, 1, 1, 3, 0, 0, 0]
         message = "liqa -task quantify -refgene <refgene_file> -bam <bam_file> -out <output_file> -max_distance <max distance> -f_weight <weight of F function>"
         inputs = my.parse_argument(validArgList, addAbsPath, message)
         refFile = inputs[1]
@@ -48,7 +48,8 @@ def main():
         outFile = inputs[3]
         misMatch = inputs[4]
         weightF = inputs[5]
-        myCommand = "python " + fileAbsPath + "/quantify.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF
+        threads = inputs[6]
+        myCommand = "python " + fileAbsPath + "/quantify.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF + " -threads " + threads
         #myCommand = "python " + "liqa_bin/quantify.py -ref " + refFile + " -bam " +  bamFile + " -out " + outFile + " -mismatch " + misMatch + " -f_weight " + weightF
         os.system(myCommand)
 
