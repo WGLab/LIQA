@@ -2,9 +2,11 @@
 
 from __future__ import print_function # load print function in python3
 from collections import defaultdict
+import functools
 import math, sys, os, re, pysam, time
 from lifelines import KaplanMeierFitter
 kmf = KaplanMeierFitter()
+from multiprocessing import Pool
 # set up auto dictionary function
 def auto_dict():
     return defaultdict(auto_dict)
@@ -15,7 +17,7 @@ def auto_dict():
 ###############################################################################
 
 # checking whether argument is valid or not
-validArgList = ["-bam", "-ref", "-out", "-mismatch", "-f_weight"]
+validArgList = ["-bam", "-ref", "-out", "-mismatch", "-f_weight", "-threads"]
 for argIndex in range(1,len(sys.argv)):
     if sys.argv[argIndex][0] == "-" and sys.argv[argIndex] not in validArgList :
         print("Argument \'"+sys.argv[argIndex]+"\' is invalid!")
@@ -27,6 +29,7 @@ refFileExists = 0
 outFileExists = 0
 misFileExists = 0
 weightFileExists = 0
+threads = 1
 for argIndex in range(1,len(sys.argv)):
     if sys.argv[argIndex] == "-bam":  ## load in BAM file
         argIndex += 1
@@ -58,7 +61,10 @@ for argIndex in range(1,len(sys.argv)):
         #misTmp = sys.argv[argIndex].split("/")
         weightF = float(sys.argv[argIndex])
         weightFileExists = 1
-
+    elif sys.argv[argIndex] == "-threads":  ## number of threads
+        argIndex += 1
+        threads = int(sys.argv[argIndex])
+        assert threads > 0, "Number of threads must be greater than 0"
                                                 
 
 if bamFileExists == 0 or refFileExists == 0 or outFileExists == 0 or misFileExists == 0 or weightFileExists == 0: ## lack enough arguments
@@ -66,8 +72,8 @@ if bamFileExists == 0 or refFileExists == 0 or outFileExists == 0 or misFileExis
     print("-bam\tIndexed bam file")
     print("-ref\tGene annotation file")
     print("-out\tOutput file")
-    print("-max_distance\tMax distance")
     print("-f_weight\tWeight of F function")
+    print("-threads\tNumber of threads to use (Default: 1)")
     sys.exit()
 
 
@@ -92,11 +98,6 @@ with open(refGeneFile, "r") as FP:
     #weightF = 0
 infthreshold = float(weightF)/10.0
 
-#####################################
-## Using pysam to read in bam file !!
-#####################################
-bamFilePysam = pysam.Samfile(bamFile,"rb")
-
 
 ## RESULTS FILE
 OUT = open(outFile, 'w')
@@ -113,9 +114,7 @@ startTime = time.time()
 #OUT.write("GeneName\tIsoformName\tNumberOfReads\tRelativeAbundance\n") ## Header of Results
 OUT.write("GeneName\tIsoformName\tReadPerGene_corrected\tRelativeAbundance\tinfor_ratio\n")
 
-for gene in geneStructureInformation:
-
-    geneCount += 1
+def processGene(gene):
     tmpTime = (time.time() - startTime)/60.0
     
     
@@ -150,7 +149,7 @@ for gene in geneStructureInformation:
             tmpisolength[iii] = 0
 
     ## load all reads information which were mapped to the specific gene within this loop using pysam
-    for read in bamFilePysam.fetch(geneChr, geneStart, geneEnd):
+    for read in pysam.Samfile(bamFile,"rb").fetch(geneChr, geneStart, geneEnd):
         line = str(read)
         tmpinf = line.split("\t")
         tmpReadName = tmpinf[0]
@@ -395,9 +394,9 @@ for gene in geneStructureInformation:
     ### COMPATIBLE MATRIX OBTAINED !!!
     ###############################################################################################################
     
-    if readCount == 0: continue
+    if readCount == 0: return ''
     fisherinf = readCount1iso/float(prereadCount)
-    if fisherinf < infthreshold: continue
+    if fisherinf < infthreshold: return ''
     print(gene+"\tprocessing...")
     
     ##############################################################################################################
@@ -553,7 +552,7 @@ for gene in geneStructureInformation:
 
                 
     sumAlpha = sum(Alpha)
-    if sumAlpha == 0: continue
+    if sumAlpha == 0: return ''
 
     for i in range(len(Alpha)):
         Alpha[i] = Alpha[i] / sumAlpha
@@ -567,6 +566,7 @@ for gene in geneStructureInformation:
     print(gene+"\t"+str(iterCount)+" iterations\tDone!")
     
     #rpg_lengthcorrected = readCount/genelength*100
+    result = []
     for i in range(len(Alpha)):
         #isoformRelativeAbundances[i] = (Alpha[i]/isoformLength[isoformNames[i]]+tmpisolength[i]*weightF) /(sumTheta)
         #isoformRelativeAbundances[i] = (Alpha[i] + tmpisolength[i]*weightF) /(sumTheta)
@@ -576,7 +576,17 @@ for gene in geneStructureInformation:
         rpg_lengthcorrected = readCount/genelength*100*isoformRelativeAbundances[i]
 
         #OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(readCount)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(rpg_lengthcorrected)+"\n") ## write results into specified file
-        OUT.write(gene+"\t"+isoformNames[i]+"\t"+str(rpg_lengthcorrected)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(fisherinf)+"\n")
+        result.append(gene+"\t"+isoformNames[i]+"\t"+str(rpg_lengthcorrected)+"\t"+str(isoformRelativeAbundances[i])+"\t"+str(fisherinf))
+    return '\n'.join(result) + '\n'
+
+if threads > 1:
+    mapper = functools.partial(Pool(threads).imap_unordered, chunksize=1)
+else:
+    mapper = map
+for result in mapper(processGene, list(geneStructureInformation.keys())):
+    OUT.write(result)
+if threads > 1:
+    Pool(threads).close()
 
 OUT.close()
             
