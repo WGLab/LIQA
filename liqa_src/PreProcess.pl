@@ -7,8 +7,9 @@ use Pod::Usage;
 
 my $refseq; # gene annotation - UCSC
 my $output; # length of sequence read
+my $minisoform; # minimum number of isoforms per gene
 
-GetOptions('r=s'=>\$refseq,'o=s'=>\$output);
+GetOptions('r=s'=>\$refseq,'o=s'=>\$output,'m=i'=>\$minisoform);
 
 if((!($refseq))||(!($output))){
     pod2usage();
@@ -78,7 +79,7 @@ foreach my $ID  (keys %isoGene )
     my $i_end = $isoEnd{$ID};
     my %ISO_Index = ();
 
-    if($size >1)  ### you can specify the number of the isoform per gene here
+    if($size >= $minisoform)  ### you can specify the number of the isoform per gene here
     {
        print RRR "$ID\t$i_chrom\t$i_strand\t$i_start\t$i_end\t";
        for(my $j=0; $j<= $#genename; $j++)

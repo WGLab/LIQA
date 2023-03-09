@@ -21,19 +21,20 @@ def main():
         print("\tdiff:   detect differential splicing gene/isoform\n")
 
     if task == "refgene":
-        validArgList = ["-task", "-ref", "-format", "-out"]
-        addAbsPath = [0, 1, 0, 3]
-        message = "liqa -task refgene -ref <reference_file> -format <reference_file_format(gtf/ucsc)> -out <output_file>"
+        validArgList = ["-task", "-ref", "-format", "-out", "-m"]
+        addAbsPath = [0, 1, 0, 3, 0]
+        message = "liqa -task refgene -ref <reference_file> -format <reference_file_format(gtf/ucsc)> -out <output_file> -m <minimum number of isoforms per gene>"
         inputs = my.parse_argument(validArgList, addAbsPath, message)
         refFile = inputs[1]
         formatFile = inputs[2]
         outFile = inputs[3]
+        minIsoforms = inputs[4]
 
         if (formatFile == "ucsc"):
-            myCommand = "perl " + fileAbsPath + "/PreProcess.pl -r " + refFile + " -o " + outFile
+            myCommand = "perl " + fileAbsPath + "/PreProcess.pl -r " + refFile + " -o " + outFile + " -m " + minIsoforms
             os.system(myCommand)
         elif (formatFile == "gtf"):
-            myCommand = "perl " + fileAbsPath + "/PreProcess_gtf.pl -r " + refFile + " -o " + outFile
+            myCommand = "perl " + fileAbsPath + "/PreProcess_gtf.pl -r " + refFile + " -o " + outFile + " -m " + minIsoforms
             os.system(myCommand)
         else:
             print("Please specify reference file format: gtf/ucsc")
