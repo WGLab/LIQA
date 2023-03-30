@@ -36,15 +36,9 @@ while(<FP>) {
     my $exend = $a[4];
     my $info = $a[8];
     
-    if(/gene_name/) {
-	my @b = split("gene_name", $info);
-	my @c = split("\"", $b[1]);
-	$gene = $c[1];
-    } else {
 	my @b = split("gene_id", $info);
 	my @c = split("\"", $b[1]);
 	$gene = $c[1];
-    }
     my @d = split("transcript_id", $info);
     my @e = split("\"", $d[1]);
     $trans = $e[1];
