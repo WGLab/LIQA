@@ -10,7 +10,7 @@ def main():
     crtAbsPath = os.getcwd()
 
     task = ""
-    taskList = ["refgene", "quantify", "diff"]
+    taskList = ["refgene", "quantify", "diff", "novel"]
     for i in range(1,len(sys.argv)):
         if sys.argv[i] == "-task" and len(sys.argv)!=i+1:
             task = sys.argv[i+1]
@@ -19,7 +19,8 @@ def main():
         print("\trefgene:   preprocess reference file\n")
         print("\tquantify:   quantify isoform expression\n")
         print("\tdiff:   detect differential splicing gene/isoform\n")
-
+        print("\tnovel:   detect novel isoform\n")
+        
     if task == "refgene":
         validArgList = ["-task", "-ref", "-format", "-out"]
         addAbsPath = [0, 1, 0, 3]
@@ -38,6 +39,18 @@ def main():
         else:
             print("Please specify reference file format: gtf/ucsc")
 
+        if task == "novel":
+        validArgList = ["-task", "-ref", "-format", "-out"]
+        addAbsPath = [0, 1, 0, 3]
+        message = "liqa -task  -ref <reference_file> -bam <list of bam file> -out <output_file>"
+        inputs = my.parse_argument(validArgList, addAbsPath, message)
+        refFile = inputs[1]
+        formatFile = inputs[2]
+        outFile = inputs[3]
+
+        myCommand = "perl " + fileAbsPath + "/PreProcess_gtf.pl -r " + refFile + " -o " + outFile
+        os.system(myCommand)
+            
     if task == "quantify":
         validArgList = ["-task", "-refgene", "-bam", "-out", "-max_distance", "-f_weight"]
         addAbsPath = [0, 1, 1, 3, 0, 0]
