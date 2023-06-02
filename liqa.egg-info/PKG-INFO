@@ -1,12 +1,11 @@
 Metadata-Version: 2.1
 Name: liqa
-Version: 1.1.22
+Version: 1.1.3
 Summary: A statistical tool to quantify isoform-specific expression using long-read RNA-seq
 Home-page: https://github.com/WGLab/LIQA
 Author: Yu Hu
 Author-email: huyu999999@gmail.com
 License: MIT
-Platform: UNKNOWN
 Classifier: Programming Language :: Python :: 3
 Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
@@ -44,5 +43,3 @@ If you have any questions/issues/bugs, please post them on [GitHub](https://gith
 ## Citation
 
 Yu Hu, Li Fang, Xuelian Chen, Jiang F. Zhong, Mingyao Li, Kai Wang. LIQA: Long-read Isoform Quantification and Analysis. 2020. bioRxiv doi: [https://doi.org/10.1101/2020.09.09.289793](https://www.biorxiv.org/content/10.1101/2020.09.09.289793v1)
-
-

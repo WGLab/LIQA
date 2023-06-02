@@ -1,3 +1,2 @@
 [console_scripts]
 liqa = liqa_src.liqa:main
-
