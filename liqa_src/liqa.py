@@ -39,7 +39,7 @@ def main():
         else:
             print("Please specify reference file format: gtf/ucsc")
 
-        if task == "novel":
+    if task == "novel":
         validArgList = ["-task", "-ref", "-format", "-out"]
         addAbsPath = [0, 1, 0, 3]
         message = "liqa -task  -ref <reference_file> -bam <list of bam file> -out <output_file>"
