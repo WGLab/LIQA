@@ -40,15 +40,15 @@ def main():
             print("Please specify reference file format: gtf/ucsc")
 
     if task == "novel":
-        validArgList = ["-task", "-ref", "-format", "-out"]
-        addAbsPath = [0, 1, 0, 3]
-        message = "liqa -task  -ref <reference_file> -bam <list of bam file> -out <output_file>"
+        validArgList = ["-task", "-ref", "-bamlist", "-out"]
+        addAbsPath = [0, 1, 1, 3]
+        message = "liqa -task novel -ref <reference_file> -bamlist <list of bam file> -out <output_file>"
         inputs = my.parse_argument(validArgList, addAbsPath, message)
         refFile = inputs[1]
-        formatFile = inputs[2]
+        bamList = inputs[2]
         outFile = inputs[3]
 
-        myCommand = "perl " + fileAbsPath + "/PreProcess_gtf.pl -r " + refFile + " -o " + outFile
+        myCommand = "perl " + fileAbsPath + "/detect.pl -r " + refFile + " -o " + outFile + " -b " + bamList
         os.system(myCommand)
             
     if task == "quantify":
