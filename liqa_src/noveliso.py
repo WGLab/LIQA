@@ -420,7 +420,7 @@ for gene in geneStructureInformation:
     refoutput = geneStructureInformation[gene][0]
     
     for i in range(len(noveliso_wt)):
-        refoutput = refoutput + "novel_iso_" + str(noveliso_wt[i]) + "_" + str(noveliso_ct[noveliso_wt[i]]) + ","
+        refoutput = refoutput + gene + "_novel_iso_" + str(noveliso_wt[i]) + "_" + str(noveliso_ct[noveliso_wt[i]]) + ","
         
     refoutput = refoutput + "\n"
     
