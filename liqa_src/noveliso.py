@@ -411,7 +411,7 @@ for gene in geneStructureInformation:
     ### COMPATIBLE MATRIX OBTAINED !!!
     ###############################################################################################################
 
-    #print(",".join(tmpisoinf))
+    print(gene)
     noveliso_wt = []
     for weight in noveliso_ct:
         if noveliso_ct[weight] >= weightF:
