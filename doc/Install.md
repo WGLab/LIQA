@@ -24,7 +24,7 @@ Following packages are required for running `liqa`:
 Among the required packages, `math`, `sys`, `os`, `re` and `time` are included in the python standard library, meaning that they should be already installed with python.
 
 If you are using an R version that does not allow you to install `gcmr`, there are several solutions to try: (1) use conda, and then `conda install r-base`, and then use conda's R version for `install.packages("gcmr")`. (2) install `gcmr` manually from [here](https://cran.r-project.org/src/contrib/Archive/gcmr/) by `R CMD INSTALL gcmr_1.0.2.tar.gz)` or open R and type
-`install.packages(FILE, repos = NULL, type="source")`.
+`install.packages(FILE, repos = NULL, type="source")`. Do the same for matrixmodels 0.4.1, pbkrtest 0.4.7 and rcppeigen 0.3.3.5.0 through archive as well.
 
 ## PyPI  
 The recommended way to install `liqa` is using [pip](https://pip.pypa.io/en/stable/):
