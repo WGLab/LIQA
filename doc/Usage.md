@@ -9,6 +9,8 @@ liqa -task <task>:
         quantify:   quantify isoform expression
         
         diff:   detect differential splicing gene/isoform
+
+	novel:	detect noval isoform
         
 ```
 
@@ -122,3 +124,22 @@ Output:
 		• Column 3: Hellinger distance which measures the splicing difference between two conditions for a gene in terms of isoform relative abundances
 		
 ```
+
+## Novel isoform detection
+For novel isoform detection, the user can use the following LIQA command and parameters.
+```
+liqa    -task novel
+        -refgene <refgene_file>
+        -bam <bam_file>
+        -out <output_file>
+	-num_cover <# bp coverage>
+	-num_support_read <# support reads>
+```
+Here is an example of the command you can run:
+
+```
+ liqa -task novel -refgene example.refgene -bam example.bam -out noveltest -num_cover 20 -num_support_read 10
+```
+
+
+The output is a GTF file with a list of genes/isoforms and their relative abundance. 
