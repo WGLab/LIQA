@@ -69,5 +69,7 @@ $ liqa
 #        quantify:   quantify isoform expression
 #
 #        diff:   detect differential splicing gene/isoform
+#
+#        novel:   detect novel isoform
 
 ```
