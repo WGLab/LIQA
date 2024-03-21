@@ -230,6 +230,6 @@ close(RRR);
 
 =head1 SYNOPSIS
 
-    -r ---RefSeqAnnotation file
+    -r, -ref	input RefSeqAnnotation file
 
-    -o ---The file name that you want to save the results
+    -o,-out	file name/location to save refgene results
