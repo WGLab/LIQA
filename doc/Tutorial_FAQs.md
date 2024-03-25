@@ -25,10 +25,24 @@ chr21	HAVANA	CDS	25683883	25683948	.	+	2	gene_id "ENSG00000154721.15"; transcrip
 chr21	HAVANA	exon	25689866	25689973	.	+	.	gene_id "ENSG00000154721.15"; transcript_id "ENST00000480456.6"; gene_type "protein_coding"; gene_name "JAM2"; transcript_type "protein_coding"; transcript_name "JAM2-206"; exon_number 3; exon_id "ENSE00001017301.1"; level 2; protein_id "ENSP00000420419.1"; transcript_support_level "1"; hgnc_id "HGNC:14686"; tag "basic"; tag "MANE_Select"; tag "appris_principal_3"; tag "CCDS"; ccdsid "CCDS42911.1"; havana_gene "OTTHUMG00000078441.4"; havana_transcript "OTTHUMT00000171347.2";
 ```
 
+Run the following command to convert this to the LIQA-compatible refgene file. (Note: This input must be a GTF file - see the FAQs section below for conversion from GFF to GTF.
 ```
 liqa -task refgene -format gtf -ref sample.gtf -out sample.refgene
 ```
-Then, isoform compatible matrix will be saved to `sample.refgene`.
+The isoform compatible matrix will be saved to `sample.refgene`. Below is a preview of how it should look.
+```
+DSCAM-AS1       chr21   +       40383082        40385358        ENST00000422749.5,ENST00000455354.1,ENST00000427451.5,ENST00000444046.5,
+DSCAM-AS1       chr21   +       40383082        40383408        1,1,1,1,
+DSCAM-AS1       chr21   +       40383409        40383455        0,1,1,1,
+DSCAM-AS1       chr21   +       40383456        40383504        0,1,0,0,
+DSCAM-AS1       chr21   +       40383505        40383584        1,1,0,0,
+DSCAM-AS1       chr21   +       40383651        40384138        0,0,1,0,
+DSCAM-AS1       chr21   +       40384578        40385358        1,1,1,1,
+SOD1    chr21   +       31659621        31668931        ENST00000270142.10,ENST00000389995.4,ENST00000470944.1,ENST00000476106.5,
+SOD1    chr21   +       31659621        31659664        1,0,0,0,
+SOD1    chr21   +       31659665        31659691        1,1,0,0,
+SOD1    chr21   +       31659692        31659707        1,1,0,1,
+```
 
 ### Step 3. Quantifying isoform expression using LIQA
 There are 10 samples to analyse. Please use following command to quantify isoform expression for each sample:
