@@ -1,4 +1,5 @@
-# Tutorial and FAQ
+# Tutorial and FAQs
+## Tutorial
 This section contains examples isoform analysis using LIQA. It is assumed that LIQA has been successfully installed. If not, please install it and its required packages first according to the [Installation](https://github.com/WGLab/LIQA/blob/master/doc/Install.md).
 
 ### Step 1. Downloading the example data
@@ -25,7 +26,7 @@ chr21	HAVANA	CDS	25683883	25683948	.	+	2	gene_id "ENSG00000154721.15"; transcrip
 chr21	HAVANA	exon	25689866	25689973	.	+	.	gene_id "ENSG00000154721.15"; transcript_id "ENST00000480456.6"; gene_type "protein_coding"; gene_name "JAM2"; transcript_type "protein_coding"; transcript_name "JAM2-206"; exon_number 3; exon_id "ENSE00001017301.1"; level 2; protein_id "ENSP00000420419.1"; transcript_support_level "1"; hgnc_id "HGNC:14686"; tag "basic"; tag "MANE_Select"; tag "appris_principal_3"; tag "CCDS"; ccdsid "CCDS42911.1"; havana_gene "OTTHUMG00000078441.4"; havana_transcript "OTTHUMT00000171347.2";
 ```
 
-Run the following command to convert this to the LIQA-compatible refgene file. (Note: This input must be a GTF file - see the FAQs section below for conversion from GFF to GTF.
+Run the following command to convert this to the LIQA-compatible refgene file. Note: This input must be a GTF file - see the FAQs section below for conversion from GFF to GTF - or a UCSC file (example/example.ucsc)
 ```
 liqa -task refgene -format gtf -ref sample.gtf -out sample.refgene
 ```
@@ -43,9 +44,11 @@ SOD1    chr21   +       31659621        31659664        1,0,0,0,
 SOD1    chr21   +       31659665        31659691        1,1,0,0,
 SOD1    chr21   +       31659692        31659707        1,1,0,1,
 ```
+Fill in what each column means.
 
 ### Step 3. Quantifying isoform expression using LIQA
-There are 10 samples to analyse. Please use following command to quantify isoform expression for each sample:
+
+There are 10 samples to analyse. The next step is to run the quantify isoform expression step for each sample. Run the following 10 commands. Note that with your own data, if an error is outputted, then you should sort the BAM file (see Usage + FAQs). 
 ```
 liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_1 -max_distance 20 -f_weight 1 -bam data/simu1.bam
 liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_2 -max_distance 20 -f_weight 1 -bam data/simu2.bam
@@ -58,10 +61,27 @@ liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_e
 liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_9 -max_distance 20 -f_weight 1 -bam data/simu9.bam
 liqa -task quantify -refgene sample.refgene -out estimation/isoform_expression_estimates_10 -max_distance 20 -f_weight 1 -bam data/simu10.bam
 ```
-Then, the results will be under the directory of `estimation`.
+The progress of this command will be outputted as well.
+
+Then, the results will be under the directory of `estimation`. Below is a preview of isoform_expression_estimates_1:
+```
+GeneName        IsoformName     ReadPerGene_corrected   RelativeAbundance       infor_ratio
+DSCAM-AS1       ENST00000422749.5       9.33340258530289        0.14814924738576016     0.8571428571428571
+DSCAM-AS1       ENST00000455354.1       45.499747588441075      0.7222182156895409      0.8571428571428571
+DSCAM-AS1       ENST00000427451.5       5.833381993667815       0.0925933649788542      0.8571428571428571
+DSCAM-AS1       ENST00000444046.5       2.3334678325882163      0.037039171945844704    0.8571428571428571
+SOD1    ENST00000270142.10      192.0   0.9846153846153847      0.3333333333333333
+SOD1    ENST00000389995.4       0.0     0.0     0.3333333333333333
+SOD1    ENST00000470944.1       3.0     0.015384615384615385    0.3333333333333333
+SOD1    ENST00000476106.5       0.0     0.0     0.3333333333333333
+```
+
+Fill-in what each column means.
 
 ### Step 4. Detecting DAS genes using LIQA
-It is assumed that sample 1 to 5 belong to group 1 and sample 6 to 10 belong to group 2. The following lists summarized isoform expression estimates file for each group:
+In this step, the user provides two lists of isoform expression estimates files for condition 1 and 2 to use LIQA for differential splicing gene/isoform detection.
+
+In this example, we assume that sample 1 to 5 belong to group 1 and sample 6 to 10 belong to group 2. The following lists summarized isoform expression estimates file for each group:
 ```bash
 $ more list1
 estimation/isoform_expression_estimates_1
@@ -82,3 +102,30 @@ liqa -task diff -condition_1 list1 -condition_2 list2 -out das_detection_results
 ```
 Then, the results will be saved to `das_detection_results`.
 
+The output file is a gene-based test results file with 3 columns:
+		• Column 1: gene name
+		• Column 2: test P-Value
+		• Column 3: Hellinger distance which measures the splicing difference between two conditions for a gene in terms of isoform relative abundances - this column does not appear with example data below
+
+```
+ATP5PF  0.529504372538969
+BACE2   0.999992837256582
+DOP1B   0.000895020175699646
+DSCAM-AS1       0.376916750256904
+FTCD    0.0570208071493823
+GABPA   0.557111938189986
+IFNAR1  0.999632675437593
+IL10RB  0.258904461845951
+JAM2    0.989221122845281
+OLIG1   0.460240770280204
+PDXK    1
+RIPPLY3 1
+S100B   1
+SOD1    6.7783673930899e-05
+```
+
+## FAQs
+
+1. GFF to GTF
+2. Sorting BAM
+   
