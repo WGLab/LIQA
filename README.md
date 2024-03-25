@@ -20,7 +20,7 @@ Please refere to [Usage](https://github.com/WGLab/LIQA/blob/master/doc/Usage.md)
 
 ## Examples of isoform analysis using LIQA.
 
-Please refer to [Tutorial and FAQs](https://github.com/WGLab/LIQA/blob/master/doc/Tutorial_FAQ.md) for a tutorial of LIQA with the example data along with FAQs.
+Please refer to [Tutorial and FAQs](https://github.com/WGLab/LIQA/blob/master/doc/Tutorial_FAQs.md) for a tutorial of LIQA with the example data along with FAQs.
 
 ## Contact
 
