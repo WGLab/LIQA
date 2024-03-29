@@ -1,6 +1,6 @@
 # Tutorial and FAQs
 ## Tutorial
-This section contains examples isoform analysis using LIQA. It is assumed that LIQA has been successfully installed. If not, please install it and its required packages first according to the [Installation](https://github.com/WGLab/LIQA/blob/master/doc/Install.md).
+This section contains an example of isoform analysis using LIQA, specifically differential expression. It is assumed that LIQA has been successfully installed. If not, please install it and its required packages first according to the [Installation](https://github.com/WGLab/LIQA/blob/master/doc/Install.md).
 
 ### Step 1. Downloading the example data
 
