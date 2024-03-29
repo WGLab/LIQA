@@ -138,3 +138,4 @@ In the instance that you have an empty/truncated BAM file, make sure to sort the
 3. Does LIQA have a novel isoform detection tool?
 Yes, more information can be found in [Usage](https://github.com/WGLab/LIQA/blob/master/doc/Usage.md)
    
+For all other questions, feel free to check past issues to see if any of your questions were previously answered.
