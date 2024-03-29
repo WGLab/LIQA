@@ -125,7 +125,16 @@ SOD1    6.7783673930899e-05
 ```
 
 ## FAQs
+Ensure you have the latest version of LIQA.
 
-1. GFF to GTF
-2. Sorting BAM
+1. Can I use my GFF file as an input for the refgene task?
+LIQA only takes a GTF or UCSC as an input. To convert your GFF file, you can use the [gffread](https://github.com/gpertea/gffread) command as follows:
+```
+gffread -i gffinput -o gtfoutput
+```
+2. Where is my BAM file/why is it truncated?
+In the instance that you have an empty/truncated BAM file, make sure to sort the BAM file, which you can do with SAMtools.
+
+3. Does LIQA have a novel isoform detection tool?
+Yes, more information can be found in [Usage](https://github.com/WGLab/LIQA/blob/master/doc/Usage.md)
    
