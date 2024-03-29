@@ -44,7 +44,12 @@ SOD1    chr21   +       31659621        31659664        1,0,0,0,
 SOD1    chr21   +       31659665        31659691        1,1,0,0,
 SOD1    chr21   +       31659692        31659707        1,1,0,1,
 ```
-Fill in what each column means.
+Column interpretation
+- Column 1: Gene Name
+- Column 2: Chromosome Number
+- Column 3: Strand
+- Column 4-5: Positions
+- Column 6: Isoform expression matrix
 
 ### Step 3. Quantifying isoform expression using LIQA
 
@@ -76,7 +81,12 @@ SOD1    ENST00000470944.1       3.0     0.015384615384615385    0.33333333333333
 SOD1    ENST00000476106.5       0.0     0.0     0.3333333333333333
 ```
 
-Fill-in what each column means.
+Column interpretation
+- Column 1: Gene Name
+- Column 2: Isoform Name from ENST Ensembl Transcript ID
+- Column 3: Corrected read counts per gene from quantify step
+- Column 4: Relative abundance of transcript in genome
+- Column 5: Isoform expression estimate in form of information ratio from matrix
 
 ### Step 4. Detecting DAS genes using LIQA
 In this step, the user provides two lists of isoform expression estimates files for condition 1 and 2 to use LIQA for differential splicing gene/isoform detection.
