@@ -111,7 +111,7 @@ geneCount = 0
 startTime = time.time()
 
 #OUT.write("GeneName\tIsoformName\tNumberOfReads\tRelativeAbundance\n") ## Header of Results
-OUT.write("GeneName\tIsoformName\tReadPerGene_corrected\tRelativeAbundance\tinfor_ratio\n")
+OUT.write("GeneName\tChromosome\tStrand\tStart\tEnd\tinfor_ratio\n")
 
 for gene in geneStructureInformation:
 
