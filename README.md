@@ -28,4 +28,4 @@ If you have any questions/issues/bugs, please post them on [GitHub](https://gith
 
 ## Citation
 
-Hu, Y., Fang, L., Chen, X. et al. LIQA: long-read isoform quantification and analysis. Genome Biol 22, 182 (2021). [https://doi.org/10.1186/s13059-021-02399-8](url)
+Hu, Y., Fang, L., Chen, X. et al. LIQA: long-read isoform quantification and analysis. Genome Biol 22, 182 (2021). [https://doi.org/10.1186/s13059-021-02399-8]([url](https://doi.org/10.1186/s13059-021-02399-8))
