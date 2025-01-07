@@ -10,7 +10,7 @@ LIQA (Long-read Isoform Quantification and Analysis) is an Expectation-Maximizat
 </p>
 
 ## Inputs of LIQA
-The input of LIQA is long-read RNA-seq read data in BAM format together with a refrence isoform annotation file.
+The input of LIQA is long-read RNA-seq read data in BAM format together with a reference isoform annotation file.
 
 ## Installation
 Please refer to [Installation](https://github.com/WGLab/LIQA/blob/master/doc/Install.md) for how to install LIQA.
