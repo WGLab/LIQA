@@ -1,8 +1,10 @@
 ##########
 ## MAIN ##
 ##########
+install.packages("philentropy")
 library("gcmr")
 library("betareg")
+library("philentropy")
 
 input.file <- commandArgs(trailingOnly = TRUE)
 #raw.data <- read.table("exonresult")
@@ -19,6 +21,7 @@ gene.p.value.list <- c()
 exon.p.value.list <- c()
 result.gene.col <- c()
 result.exon.col <- c()
+hellinger.dist.col <- c()
 
 ##########################
 ## START TO DO ANALYSIS ##
@@ -109,9 +112,9 @@ cat("Done!\n")
 }
 
 # summarize gene based results
-test.result.gene <- data.frame(result.gene.col,gene.p.value.list)
+test.result.gene <- data.frame(result.gene.col,gene.p.value.list,hellinger.dist.col)
 if(is.null(test.result.gene) == F){
-colnames(test.result.gene) <- c("gene","pvalue")
+colnames(test.result.gene) <- c("gene","pvalue","hellingerdist")
 }
 write.table(test.result.gene,file=generesultfile,row.names = FALSE,quote=F, sep="\t", col.names=F)
 
