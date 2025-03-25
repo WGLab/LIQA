@@ -78,6 +78,7 @@ for(gene.name in gene.list) {
     LR.stat <- -2*(fit.H1$maximum-fit.H0$maximum)
     gene.p.value.list <- c(gene.p.value.list, 1-pchisq(LR.stat,numDS))
     result.gene.col <- c(result.gene.col,gene.name)
+    hellinger.dist.col <- c(distance(data.gene.frame, method = "hellinger"))
     ########################
     ## do exon based test ##
     ########################
